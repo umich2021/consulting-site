@@ -1,0 +1,119 @@
+.shell {
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-margin);
+  /* room for the sticky contact bar on phones */
+  padding-block-end: calc(var(--button-height) + var(--space-6));
+
+  @media (min-width: 48rem) {
+    padding-block-end: 0;
+  }
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  border-block-end: var(--rule-width) solid var(--color-rule);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--button-height);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.square {
+  inline-size: var(--square-size);
+  block-size: var(--square-size);
+  background: var(--color-primary);
+}
+
+.nav {
+  display: none;
+
+  @media (min-width: 48rem) {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  gap: var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+
+  & a {
+    display: inline-block;
+    padding-block: var(--space-2);
+    text-decoration: none;
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+}
+
+.main {
+  padding-block-end: var(--space-8);
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+  border-block-start: var(--rule-width) solid var(--color-rule);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.contactBar {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--z-sticky);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+  padding: var(--space-2) var(--page-margin);
+  background: var(--color-surface);
+  border-block-start: var(--rule-width) solid var(--color-rule);
+
+  @media (min-width: 48rem) {
+    display: none;
+  }
+}
+
+.contactBarPrimary,
+.contactBarSecondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.contactBarPrimary {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+
+  &:hover {
+    background: var(--color-primary-hover);
+    color: var(--color-on-primary);
+  }
+}
+
+.contactBarSecondary {
+  border: var(--rule-width) solid var(--color-text);
+}
