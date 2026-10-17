@@ -37,28 +37,36 @@
 }
 
 .nav {
-  display: none;
+  inline-size: 100%;
 
   @media (min-width: 48rem) {
-    display: block;
+    inline-size: auto;
   }
 }
 
 .navList {
   display: flex;
-  gap: var(--space-5);
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
 
   & a {
-    display: inline-block;
-    padding-block: var(--space-2);
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--button-height);
     text-decoration: none;
   }
 
   & a:hover {
     text-decoration: underline;
   }
+}
+
+.active {
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 2px;
 }
 
 .main {

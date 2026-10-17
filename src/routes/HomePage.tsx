@@ -1,19 +1,8 @@
-import {
-  BACKGROUND,
-  BACKGROUND_INTRO,
-  CONTACT,
-  CONTACT_HEADING,
-  INTRO,
-  REGULATED_NOTE,
-  SERVICES,
-  STEPS,
-  WORK,
-} from '../content/site'
-import styles from './HomePage.module.css'
-
-function formatIndex(index: number) {
-  return String(index + 1).padStart(2, '0')
-}
+import { Link } from 'react-router'
+import { WallSection } from '../components/WallSection'
+import { CONTACT, INTRO, REGULATED_NOTE, SERVICES } from '../content/site'
+import { formatIndex } from '../lib/format'
+import styles from '../styles/sections.module.css'
 
 export function HomePage() {
   return (
@@ -40,7 +29,9 @@ export function HomePage() {
         </div>
       </section>
 
-      <section id="services" className={styles.section} aria-labelledby="services-heading">
+      <WallSection />
+
+      <section className={styles.section} aria-labelledby="services-heading">
         <h2 id="services-heading" className={styles.sectionLabel}>
           What I do
         </h2>
@@ -57,101 +48,14 @@ export function HomePage() {
             ))}
           </ol>
           <p className={styles.note}>{REGULATED_NOTE}</p>
-        </div>
-      </section>
-
-      <section id="work" className={styles.section} aria-labelledby="work-heading">
-        <h2 id="work-heading" className={styles.sectionLabel}>
-          Selected work
-        </h2>
-        <div className={styles.sectionBody}>
-          <ol className={styles.work}>
-            {WORK.map((item, index) => (
-              <li key={item.title} className={styles.workItem}>
-                <figure className={styles.workFigure}>
-                  <img
-                    src={item.image}
-                    alt={item.imageAlt}
-                    width={item.imageWidth}
-                    height={item.imageHeight}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
-                <div className={styles.row}>
-                  <span className={styles.number}>{formatIndex(index)}</span>
-                  <div>
-                    <h3 className={styles.rowTitle}>
-                      {item.href ? <a href={item.href}>{item.title}</a> : item.title}
-                    </h3>
-                    <p className={styles.label}>{item.meta}</p>
-                    <p className={styles.rowBody}>{item.body}</p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="process" className={styles.section} aria-labelledby="process-heading">
-        <h2 id="process-heading" className={styles.sectionLabel}>
-          How a project runs
-        </h2>
-        <div className={styles.sectionBody}>
-          <ol className={styles.steps}>
-            {STEPS.map((step, index) => (
-              <li key={step.title} className={styles.step}>
-                <span className={styles.number}>{formatIndex(index)}</span>
-                <h3 className={styles.rowTitle}>{step.title}</h3>
-                <p className={styles.rowBody}>{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section id="background" className={styles.section} aria-labelledby="background-heading">
-        <h2 id="background-heading" className={styles.sectionLabel}>
-          Background
-        </h2>
-        <div className={styles.sectionBody}>
-          <p className={styles.lead}>{BACKGROUND_INTRO}</p>
-          <dl className={styles.rows}>
-            {BACKGROUND.map((item) => (
-              <div key={item.name} className={styles.definitionRow}>
-                <dt className={styles.rowTitle}>{item.name}</dt>
-                <dd className={styles.rowBody}>{item.body}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      <section id="contact" className={styles.section} aria-labelledby="contact-heading">
-        <h2 id="contact-heading" className={styles.sectionLabel}>
-          Contact
-        </h2>
-        <div className={styles.sectionBody}>
-          <p className={styles.contactHeading}>{CONTACT_HEADING}</p>
-          <dl className={styles.rows}>
-            <div className={styles.contactRow}>
-              <dt className={styles.label}>Email</dt>
-              <dd>
-                <a className={styles.contactLink} href={`mailto:${CONTACT.email}`}>
-                  {CONTACT.email}
-                </a>
-              </dd>
-            </div>
-            <div className={styles.contactRow}>
-              <dt className={styles.label}>Call or text</dt>
-              <dd>
-                <a className={styles.contactLink} href={CONTACT.phoneHref}>
-                  {CONTACT.phoneDisplay}
-                </a>
-              </dd>
-            </div>
-          </dl>
+          <div className={styles.actions}>
+            <Link className={styles.buttonSecondary} to="/work">
+              See the work
+            </Link>
+            <Link className={styles.buttonSecondary} to="/process">
+              How a project runs
+            </Link>
+          </div>
         </div>
       </section>
     </>

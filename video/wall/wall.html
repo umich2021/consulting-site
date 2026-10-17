@@ -7,8 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --forest: #183a2e;
-  --brass: #c8a464;
   --ink: #0f1a16;
   --stage-w: 1600px;
   --stage-h: 900px;
@@ -36,20 +34,24 @@ body { width: var(--stage-w); height: var(--stage-h); overflow: hidden; backgrou
   background: radial-gradient(40% 35% at 30% 20%, rgba(200,164,100,0.18), transparent 70%); }
 
 /* app screens */
-.app { position: absolute; inset: 0; padding: 40px 16px 16px; display: flex; flex-direction: column; gap: 10px; }
-.app h4 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+.app { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 9px; padding: 0 14px 14px; }
+.pad { padding-top: 40px; }
+.app h4 { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.1; }
 .app small { font-size: 10px; opacity: 0.7; }
-.pill { border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 700; text-align: center; }
+.photo { display: block; width: 100%; object-fit: cover; border-radius: 14px; }
+.bleed { margin: 0 -14px; width: calc(100% + 28px); border-radius: 0; height: 190px; }
+.over { position: relative; }
+.over .caption { position: absolute; left: 14px; right: 14px; bottom: 12px; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+.pill { border-radius: 999px; padding: 9px 10px; font-size: 12px; font-weight: 800; text-align: center; }
 .tile { border-radius: 14px; padding: 10px; }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.stamp { width: 26px; height: 26px; border-radius: 50%; }
-.stamps { display: grid; grid-template-columns: repeat(5, 26px); gap: 8px; justify-content: center; }
-.bar { height: 8px; border-radius: 4px; }
-.slot { border-radius: 10px; padding: 9px 10px; font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; }
-.item { display: flex; gap: 10px; align-items: center; }
-.thumb { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; }
-.tabbar { margin-top: auto; display: flex; justify-content: space-around; padding-top: 8px; }
-.tabbar i { width: 18px; height: 18px; border-radius: 6px; display: block; opacity: 0.5; }
+.row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; }
+.slot { border-radius: 10px; padding: 8px 10px; font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border-radius: 8px; padding: 6px 8px; font-size: 11px; font-weight: 700; }
+.stamps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; }
+.stamp { aspect-ratio: 1; border-radius: 50%; }
+.tabbar { margin-top: auto; display: flex; justify-content: space-around; padding-top: 6px; }
+.tabbar i { width: 18px; height: 18px; border-radius: 6px; display: block; opacity: 0.45; }
 </style>
 </head>
 <body>
@@ -61,52 +63,90 @@ body { width: var(--stage-w); height: var(--stage-h); overflow: hidden; backgrou
 <script>
 const LOOP_SECONDS = 20
 const COLUMNS = 11
-const PHONES_PER_COLUMN = 5
+const PHONES_PER_COLUMN = 6
 const STEP = 480 + 44
 
-// Each screen is a tiny made-up app for a local business. Colors stay within one palette per app.
+const tabs = (color) => `<div class="tabbar">${`<i style="background:${color}"></i>`.repeat(4)}</div>`
+
+// Twelve made-up businesses of different kinds, each with its own photo, palette and screen layout.
 const SCREENS = [
-  (s) => `<div class="app" style="background:#f6efe4;color:#3b2417">
-    <small>Good morning, Ana</small><h4>Mission Grounds</h4>
-    <div class="tile" style="background:#3b2417;color:#f6efe4"><small>Rewards</small>
-      <div style="font-size:22px;font-weight:800;margin:4px 0 8px">8 of 10</div>
-      <div class="stamps">${Array.from({length:10},(_,i)=>`<span class="stamp" style="background:${i<8?'#d9a05b':'rgba(246,239,228,0.18)'}"></span>`).join('')}</div></div>
-    <div class="grid2"><div class="tile" style="background:#ead9c2;height:70px"></div><div class="tile" style="background:#e3c9a5;height:70px"></div></div>
-    <div class="pill" style="background:#d9a05b;color:#3b2417">Order ahead</div>
-    <div class="tabbar">${'<i style="background:#3b2417"></i>'.repeat(4)}</div></div>`,
-  (s) => `<div class="app" style="background:#101418;color:#eef2f5">
-    <small>Book a cut</small><h4>Valencia Cuts</h4>
-    <small style="opacity:.6">Saturday</small>
-    ${['10:00','10:45','11:30','1:15','2:00'].map((t,i)=>`<div class="slot" style="background:${i===2?'#4fb3a9':'#1d242b'};color:${i===2?'#0b1416':'#eef2f5'}"><span>${t}</span><span>${i===2?'Booked':'Open'}</span></div>`).join('')}
-    <div class="tabbar">${'<i style="background:#eef2f5"></i>'.repeat(4)}</div></div>`,
-  (s) => `<div class="app" style="background:#eef3ea;color:#1f3a28">
-    <small>Pickup in 20 min</small><h4>Fern &amp; Co.</h4>
-    ${[['#9cc49a','Monstera, large','$48'],['#c9dcb4','Pothos','$18'],['#7fae8a','Fiddle leaf','$62']].map(([c,n,p])=>`<div class="item"><span class="thumb" style="background:${c}"></span><div style="flex:1"><div style="font-size:12px;font-weight:700">${n}</div><small>${p}</small></div><span class="pill" style="background:#1f3a28;color:#eef3ea;padding:4px 9px">+</span></div>`).join('')}
-    <div class="pill" style="background:#1f3a28;color:#eef3ea;margin-top:6px">Checkout · $128</div>
-    <div class="tabbar">${'<i style="background:#1f3a28"></i>'.repeat(4)}</div></div>`,
-  (s) => `<div class="app" style="background:#1b1426;color:#f3ecff">
-    <small>This week</small><h4>Twin Peaks Yoga</h4>
-    ${[['Mon','Vinyasa','6:30 pm',.8],['Wed','Yin','7:00 pm',.45],['Fri','Power','6:00 pm',.95],['Sun','Restore','10:00 am',.6]].map(([d,n,t,f])=>`<div class="tile" style="background:#2a2040"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700"><span>${d} · ${n}</span><span>${t}</span></div><div class="bar" style="margin-top:7px;background:#3a2f55"><div class="bar" style="width:${f*100}%;background:#c39bff"></div></div></div>`).join('')}
-    <div class="tabbar">${'<i style="background:#f3ecff"></i>'.repeat(4)}</div></div>`,
-  (s) => `<div class="app" style="background:#fbf4ea;color:#4a1f1a">
-    <small>Fresh at 7 am</small><h4>Noe Bakehouse</h4>
-    <div class="tile" style="background:#c8553d;color:#fbf4ea;height:110px;display:flex;flex-direction:column;justify-content:flex-end"><small style="opacity:.9">Today only</small><div style="font-size:16px;font-weight:800">Morning buns, 2 for $7</div></div>
-    <div class="grid2"><div class="tile" style="background:#f0d9bd;height:64px"></div><div class="tile" style="background:#e8c7a0;height:64px"></div><div class="tile" style="background:#f3e3cc;height:64px"></div><div class="tile" style="background:#e2b98e;height:64px"></div></div>
-    <div class="tabbar">${'<i style="background:#4a1f1a"></i>'.repeat(4)}</div></div>`,
-  (s) => `<div class="app" style="background:${'#183a2e'};color:#f2ebdd">
-    <small>Member · Gold</small><h4 style="font-family:'Playfair Display',serif;font-weight:600">The Green Room</h4>
-    <div class="tile" style="background:rgba(242,235,221,0.08);border:1px solid #c8a464"><small>Points</small><div style="font-size:26px;font-weight:800;color:#c8a464">2,450</div><div class="bar" style="background:rgba(242,235,221,0.15);margin-top:6px"><div class="bar" style="width:72%;background:#c8a464"></div></div></div>
-    ${['Happy hour until 6','New arrivals','Order for pickup'].map(n=>`<div class="slot" style="background:rgba(242,235,221,0.06);font-weight:600"><span>${n}</span><span style="color:#c8a464">›</span></div>`).join('')}
-    <div class="tabbar">${'<i style="background:#c8a464"></i>'.repeat(4)}</div></div>`,
+  () => `<div class="app" style="background:#fff8f0;color:#3a1d12">
+    <div class="over"><img class="photo bleed" src="img/pizza.jpg" alt=""><div class="caption"><small style="opacity:.9">Order ahead · 25 min</small><h4>Ember &amp; Oak Pizza</h4></div></div>
+    ${[['Margherita','$16'],['Spicy salami','$19'],['Garlic knots','$7']].map(([n,p])=>`<div class="row"><span>${n}</span><span>${p}</span></div>`).join('')}
+    <div class="pill" style="background:#d4451f;color:#fff">Add to order</div>${tabs('#3a1d12')}</div>`,
+  () => `<div class="app pad" style="background:#0e0f12;color:#f4f5f7">
+    <small>Today</small><h4>Ironside Fitness</h4>
+    <img class="photo" src="img/gym.jpg" alt="" style="height:110px">
+    ${[['6:00','HIIT',.9],['12:15','Strength',.6],['5:30','Spin',1]].map(([t,n,f])=>`<div class="slot" style="background:#1b1d22"><span>${t} · ${n}</span><span style="color:${f>=1?'#ff6b4a':'#9be36b'}">${f>=1?'Full':'Book'}</span></div>`).join('')}
+    ${tabs('#f4f5f7')}</div>`,
+  () => `<div class="app pad" style="background:#fdf6e9;color:#3b2a14">
+    <small>Next visit</small><h4>Happy Tails Grooming</h4>
+    <img class="photo" src="img/dog.jpg" alt="" style="height:150px">
+    <div class="tile" style="background:#f3e3c3"><div class="row"><span>Full groom · Biscuit</span><span>$75</span></div><small>Thu, 10:30 am</small></div>
+    <div class="pill" style="background:#e39b2d;color:#3b2a14">Confirm booking</div>${tabs('#3b2a14')}</div>`,
+  () => `<div class="app" style="background:#eaf2fb;color:#0c2a4a">
+    <div class="over"><img class="photo bleed" src="img/car.jpg" alt=""><div class="caption"><h4>Spotless Auto Spa</h4></div></div>
+    ${[['Express wash','$12'],['Full detail','$89'],['Unlimited monthly','$29/mo']].map(([n,p],i)=>`<div class="slot" style="background:${i===2?'#1d6fd1':'#d6e5f6'};color:${i===2?'#fff':'#0c2a4a'}"><span>${n}</span><span>${p}</span></div>`).join('')}
+    ${tabs('#0c2a4a')}</div>`,
+  () => `<div class="app pad" style="background:#fff;color:#3d1530">
+    <small>Same-day delivery</small><h4>Petal &amp; Stem</h4>
+    <img class="photo" src="img/flowers.jpg" alt="" style="height:170px">
+    <div class="row"><span>Garden peony bouquet</span><span>$65</span></div>
+    <div class="chips">${['Small','Medium','Large'].map((s,i)=>`<span class="chip" style="background:${i===1?'#c2185b':'#f6e3ec'};color:${i===1?'#fff':'#3d1530'}">${s}</span>`).join('')}</div>
+    <div class="pill" style="background:#3d1530;color:#fff">Add to cart</div>${tabs('#3d1530')}</div>`,
+  () => `<div class="app pad" style="background:#141414;color:#f0e9df">
+    <small>Book a cut</small><h4>Sharp Line Barbers</h4>
+    <img class="photo" src="img/haircut.jpg" alt="" style="height:120px">
+    <div class="chips">${['Marcus','Dre','Luis'].map((s,i)=>`<span class="chip" style="background:${i===0?'#c9a227':'#262626'};color:${i===0?'#141414':'#f0e9df'}">${s}</span>`).join('')}</div>
+    ${['10:00','11:30','2:15'].map((t,i)=>`<div class="slot" style="background:#232323"><span>${t}</span><span style="color:#c9a227">${i===1?'Booked':'Open'}</span></div>`).join('')}
+    ${tabs('#f0e9df')}</div>`,
+  () => `<div class="app pad" style="background:#f2f8f7;color:#0d3b3a">
+    <small>Reminder</small><h4>Brightside Dental</h4>
+    <img class="photo" src="img/dental.jpg" alt="" style="height:130px">
+    <div class="tile" style="background:#d7ece9"><div class="row"><span>Cleaning &amp; checkup</span></div><small>Tue, Mar 4 · 9:00 am · Dr. Patel</small></div>
+    <div style="display:flex;gap:8px"><div class="pill" style="flex:1;background:#0f8b84;color:#fff">Confirm</div><div class="pill" style="flex:1;background:#d7ece9;color:#0d3b3a">Reschedule</div></div>${tabs('#0d3b3a')}</div>`,
+  () => `<div class="app pad" style="background:#fbf3ff;color:#2b1240">
+    <small>New drop</small><h4>Stride Running Co.</h4>
+    <img class="photo" src="img/sneakers.jpg" alt="" style="height:150px">
+    <div class="row"><span>Tempo 3 · Sunset</span><span>$140</span></div>
+    <div class="chips">${['8','8.5','9','9.5','10'].map((s,i)=>`<span class="chip" style="background:${i===3?'#7b2ff7':'#eadcf8'};color:${i===3?'#fff':'#2b1240'}">${s}</span>`).join('')}</div>
+    <div class="pill" style="background:#2b1240;color:#fff">Reserve in store</div>${tabs('#2b1240')}</div>`,
+  () => `<div class="app" style="background:#f7f5f1;color:#1f2a24">
+    <div class="over"><img class="photo bleed" src="img/house.jpg" alt=""><div class="caption"><small style="opacity:.9">Open house Sunday</small><h4>Hearth Realty</h4></div></div>
+    <div class="row" style="font-size:18px"><span>$589,000</span></div>
+    <div class="chips">${['4 bd','3 ba','2,140 sq ft'].map(s=>`<span class="chip" style="background:#e4e8e2">${s}</span>`).join('')}</div>
+    <div class="pill" style="background:#2f5d46;color:#fff">Schedule a tour</div>${tabs('#1f2a24')}</div>`,
+  () => `<div class="app pad" style="background:#fff7ec;color:#4a2a10">
+    <small>Good morning</small><h4>Rise Bakery</h4>
+    <img class="photo" src="img/pastry.jpg" alt="" style="height:120px">
+    <div class="tile" style="background:#4a2a10;color:#fff7ec"><div class="row"><span>Rewards</span><span>7 of 10</span></div>
+      <div class="stamps" style="margin-top:8px">${Array.from({length:10},(_,i)=>`<span class="stamp" style="background:${i<7?'#f0a43a':'rgba(255,247,236,0.2)'}"></span>`).join('')}</div></div>
+    <div class="pill" style="background:#f0a43a;color:#4a2a10">Order for pickup</div>${tabs('#4a2a10')}</div>`,
+  () => `<div class="app pad" style="background:#eef1ea;color:#2e3a2c">
+    <small>Unwind this week</small><h4 style="font-family:'Playfair Display',serif;font-weight:600">Still Water Spa</h4>
+    <img class="photo" src="img/spa.jpg" alt="" style="height:140px">
+    ${[['Deep tissue · 60 min','$110'],['Facial · 50 min','$95']].map(([n,p])=>`<div class="slot" style="background:#dfe5d8"><span>${n}</span><span>${p}</span></div>`).join('')}
+    <div class="pill" style="background:#5b6f52;color:#fff">Book a treatment</div>${tabs('#2e3a2c')}</div>`,
+  () => `<div class="app" style="background:#1d1410;color:#fff2e2">
+    <div class="over"><img class="photo bleed" src="img/tacos.jpg" alt=""><div class="caption"><h4>Casa Verde Taqueria</h4></div></div>
+    ${[['Carne asada (3)','$12'],['Al pastor (3)','$11'],['Horchata','$4']].map(([n,p])=>`<div class="row"><span>${n}</span><span style="color:#7cc96b">${p}</span></div>`).join('')}
+    <div class="pill" style="background:#2e8b3e;color:#fff">Checkout · $27</div>${tabs('#fff2e2')}</div>`,
 ]
 
+// One notification per business, in the same order as SCREENS.
 const TOASTS = [
-  ['Mission Grounds', 'Your 9th coffee is on us today.'],
-  ['Valencia Cuts', 'Reminder: Saturday 11:30 with Leo.'],
-  ['Fern & Co.', 'Your order is ready for pickup.'],
-  ['Noe Bakehouse', 'Morning buns are out of the oven.'],
-  ['The Green Room', 'Happy hour: 20% off until 6 pm.'],
-  ['Twin Peaks Yoga', '2 spots left in Friday Power.'],
+  ['Ember & Oak Pizza', 'Your pizza is out of the oven.'],
+  ['Ironside Fitness', '2 spots left in 5:30 Spin.'],
+  ['Happy Tails Grooming', 'Biscuit is ready for pickup.'],
+  ['Spotless Auto Spa', 'Rainy week? Washes are 30% off.'],
+  ['Petal & Stem', 'Your bouquet is on its way.'],
+  ['Sharp Line Barbers', 'See you at 11:30 with Marcus.'],
+  ['Brightside Dental', 'Reminder: cleaning on Tuesday.'],
+  ['Stride Running Co.', 'Your size is back in stock.'],
+  ['Hearth Realty', 'New listing in your price range.'],
+  ['Rise Bakery', 'Your 8th pastry is on us.'],
+  ['Still Water Spa', 'A 4 pm massage just opened up.'],
+  ['Casa Verde Taqueria', 'Taco Tuesday: 2 for $5.'],
 ]
 
 // Seeded random so every render of the wall is identical.
@@ -118,12 +158,12 @@ const columns = []
 for (let c = 0; c < COLUMNS; c += 1) {
   const col = document.createElement('div')
   col.className = 'col'
-  const picks = Array.from({ length: PHONES_PER_COLUMN }, (_, i) => (c * 2 + i) % SCREENS.length)
+  const picks = Array.from({ length: PHONES_PER_COLUMN }, (_, i) => (c * 5 + i * 7) % SCREENS.length)
   // Two copies of the same run so the column can scroll one run and wrap seamlessly.
-  const phones = [...picks, ...picks].map((pick, i) => {
-    const toast = rand() < 0.45 ? TOASTS[Math.floor(rand() * TOASTS.length)] : null
+  const phones = [...picks, ...picks].map((pick) => {
+    const toast = rand() < 0.4 ? TOASTS[pick] : null
     return `<div class="phone"><div class="screen">${SCREENS[pick]()}<span class="notch"></span>${
-      toast ? `<div class="toast" data-phase="${(rand()).toFixed(3)}"><b>${toast[0]}</b>${toast[1]}</div>` : ''
+      toast ? `<div class="toast" data-phase="${rand().toFixed(3)}"><b>${toast[0]}</b>${toast[1]}</div>` : ''
     }</div></div>`
   })
   col.innerHTML = phones.join('')

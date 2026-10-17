@@ -1,19 +1,15 @@
-import { Link, Outlet, useLocation } from 'react-router'
+import { Link, NavLink, Outlet, ScrollRestoration } from 'react-router'
 import { CONTACT, INTRO } from '../content/site'
 import styles from './RootLayout.module.css'
 
 const NAV_LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#work', label: 'Work' },
-  { href: '#process', label: 'Process' },
-  { href: '#background', label: 'Background' },
-  { href: '#contact', label: 'Contact' },
+  { to: '/work', label: 'Work' },
+  { to: '/process', label: 'Process' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 export function RootLayout() {
-  const { pathname } = useLocation()
-  const isHome = pathname === '/'
-
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
@@ -21,17 +17,17 @@ export function RootLayout() {
           <span className={styles.square} aria-hidden="true" />
           {INTRO.company}
         </Link>
-        {isHome && (
-          <nav aria-label="Sections" className={styles.nav}>
-            <ul className={styles.navList}>
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+        <nav aria-label="Main" className={styles.nav}>
+          <ul className={styles.navList}>
+            {NAV_LINKS.map((link) => (
+              <li key={link.to}>
+                <NavLink to={link.to} className={({ isActive }) => (isActive ? styles.active : undefined)}>
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </header>
 
       <main className={styles.main}>
@@ -53,6 +49,8 @@ export function RootLayout() {
           Call or text
         </a>
       </nav>
+
+      <ScrollRestoration />
     </div>
   )
 }

@@ -11,6 +11,10 @@
   --color-primary: light-dark(#c8221b, #ff6257);
   --color-primary-hover: color-mix(in oklch, var(--color-primary), black 14%);
   --color-on-primary: light-dark(#ffffff, #121212);
+  /* The wall-of-apps band is dark in both themes because it sits on video. */
+  --color-wall-bg: #070b09;
+  --color-wall-scrim: linear-gradient(90deg, rgb(4 6 5 / 0.72), rgb(4 6 5 / 0.15) 70%);
+  --color-on-wall: #f7f5f0;
 
   --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
 
@@ -21,6 +25,7 @@
   --text-xl: 2rem;
   --text-2xl: 3rem;
   --text-display: clamp(4rem, 1.6rem + 10vw, 9.5rem);
+  --text-page-title: clamp(3rem, 1.5rem + 6vw, 6rem);
 
   --leading-tight: 0.9;
   --leading-heading: 1.1;

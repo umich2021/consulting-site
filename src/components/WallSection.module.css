@@ -1,0 +1,51 @@
+/* Full-bleed band: breaks out of the page shell to the viewport edges. */
+.wall {
+  position: relative;
+  inline-size: 100vw;
+  margin-inline: calc(50% - 50vw);
+  aspect-ratio: 16 / 9;
+  min-block-size: 22rem;
+  max-block-size: 85vh;
+  overflow: hidden;
+  background: var(--color-wall-bg);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--page-margin);
+  background: var(--color-wall-scrim);
+
+  @media (min-width: 48rem) {
+    align-items: center;
+    padding-inline: max(var(--page-margin), calc((100vw - var(--page-max)) / 2 + var(--page-margin)));
+  }
+}
+
+.heading {
+  color: var(--color-on-wall);
+  font-size: var(--text-display);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  max-inline-size: 12ch;
+  text-wrap: balance;
+}
+
+.square {
+  display: inline-block;
+  inline-size: 0.18em;
+  block-size: 0.18em;
+  margin-inline-start: 0.06em;
+  background: var(--color-primary);
+}

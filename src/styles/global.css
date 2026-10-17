@@ -34,6 +34,8 @@
 
   body {
     background: var(--color-bg);
+    /* The full-bleed video band is 100vw wide, which includes the scrollbar. */
+    overflow-x: clip;
     color: var(--color-text);
     font-family: var(--font-sans);
     font-size: var(--text-base);

@@ -21,6 +21,11 @@ export const INTRO = {
   location: 'Based in San Francisco.',
 }
 
+// Placeholder heading over the wall-of-apps video; final wording to come from Jimson.
+export const WALL = {
+  heading: 'We build apps',
+}
+
 export const SERVICES: Service[] = [
   {
     title: 'Your own branded app',
