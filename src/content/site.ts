@@ -43,6 +43,48 @@ export const SERVICES: Service[] = [
 export const REGULATED_NOTE =
   "I also build for regulated industries, where Apple and Google add their own rules on top of the state's. A cannabis dispensary app, for example, has to verify age, show the license number and follow state rules on payments and promotions. I build that in from the start."
 
+export type WorkItem = {
+  title: string
+  meta: string
+  body: string
+  image: string
+  imageAlt: string
+  imageWidth: number
+  imageHeight: number
+  href?: string
+}
+
+export const WORK: WorkItem[] = [
+  {
+    title: 'Snag',
+    meta: 'Marketplace · Live',
+    body: "Shoppers name their price for a pair of running shoes, and every store on Snag with their size can accept or pass. Brands set a minimum advertised price, but a store can still make a private deal, so the shopper often pays less than the store's own site charges. The store gets a buyer who already knows their size.",
+    image: '/work/snag.webp',
+    imageAlt: 'Snag home page offering a Pegasus 41 for $96 instead of $109.95',
+    imageWidth: 1600,
+    imageHeight: 822,
+    href: 'https://snaganything.com',
+  },
+  {
+    title: 'Nexus',
+    meta: "AI education · Built with UNC's Shuford Entrepreneurship Program",
+    body: 'College athletes with name, image and likeness (NIL) deals get paid like small businesses but get generic financial advice. Nexus builds each athlete a course around their own deals, and its AI tutor answers questions by citing the lesson it used. Tax figures come from calculators instead of the model, and anything that reads like personal financial advice goes to an educator.',
+    image: '/work/nexus.webp',
+    imageAlt: 'Nexus dashboard with progress, daily goals and a market overview',
+    imageWidth: 1187,
+    imageHeight: 668,
+  },
+  {
+    title: 'Aventos Analytics',
+    meta: 'Brand visibility in AI answers · Live',
+    body: "When people ask ChatGPT or Google's AI about a product, the answer shapes what they buy. Aventos Analytics turns a brand's Google Ads keywords into hundreds of prompts, runs them across AI models and records every mention, claim and source. Brands see their share of voice against competitors and which sources drive it.",
+    image: '/work/aventos-analytics.webp',
+    imageAlt: 'Aventos Analytics share of voice dashboard with a visibility chart over time',
+    imageWidth: 1600,
+    imageHeight: 754,
+  },
+]
+
 export const STEPS: Step[] = [
   {
     title: 'A short call',

@@ -4,6 +4,7 @@ import styles from './RootLayout.module.css'
 
 const NAV_LINKS = [
   { href: '#services', label: 'Services' },
+  { href: '#work', label: 'Work' },
   { href: '#process', label: 'Process' },
   { href: '#background', label: 'Background' },
   { href: '#contact', label: 'Contact' },

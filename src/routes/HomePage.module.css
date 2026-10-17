@@ -185,6 +185,37 @@
   border-block-start: var(--rule-width) solid var(--color-rule);
 }
 
+.work {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.workItem {
+  display: grid;
+  gap: var(--space-5);
+
+  & .row {
+    border-block-start: none;
+    padding-block: 0;
+  }
+
+  & .label {
+    padding-block-start: var(--space-2);
+  }
+}
+
+.workFigure {
+  margin: 0;
+  border: var(--rule-width) solid var(--color-rule-subtle);
+  background: var(--color-surface);
+
+  & img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+}
+
 .steps {
   display: grid;
   gap: var(--space-6) var(--grid-gutter);

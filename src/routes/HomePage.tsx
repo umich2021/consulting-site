@@ -7,6 +7,7 @@ import {
   REGULATED_NOTE,
   SERVICES,
   STEPS,
+  WORK,
 } from '../content/site'
 import styles from './HomePage.module.css'
 
@@ -56,6 +57,40 @@ export function HomePage() {
             ))}
           </ol>
           <p className={styles.note}>{REGULATED_NOTE}</p>
+        </div>
+      </section>
+
+      <section id="work" className={styles.section} aria-labelledby="work-heading">
+        <h2 id="work-heading" className={styles.sectionLabel}>
+          Selected work
+        </h2>
+        <div className={styles.sectionBody}>
+          <ol className={styles.work}>
+            {WORK.map((item, index) => (
+              <li key={item.title} className={styles.workItem}>
+                <figure className={styles.workFigure}>
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt}
+                    width={item.imageWidth}
+                    height={item.imageHeight}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div className={styles.row}>
+                  <span className={styles.number}>{formatIndex(index)}</span>
+                  <div>
+                    <h3 className={styles.rowTitle}>
+                      {item.href ? <a href={item.href}>{item.title}</a> : item.title}
+                    </h3>
+                    <p className={styles.label}>{item.meta}</p>
+                    <p className={styles.rowBody}>{item.body}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

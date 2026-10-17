@@ -39,6 +39,22 @@ Send offers on slow days and reminders when a customer is due back. I keep the a
 
 Regulated industries: I also build for regulated industries, where Apple and Google add their own rules on top of the state's. A cannabis dispensary app, for example, has to verify age, show the license number and follow state rules on payments and promotions. I build that in from the start.
 
+## Selected work
+
+Screenshots in `public/work/`. Nexus's screenshot comes from endaltechnologies.com (the cofounder's consultancy); the text below is rewritten.
+
+01. Snag (links to snaganything.com)
+Marketplace · Live
+Shoppers name their price for a pair of running shoes, and every store on Snag with their size can accept or pass. Brands set a minimum advertised price, but a store can still make a private deal, so the shopper often pays less than the store's own site charges. The store gets a buyer who already knows their size.
+
+02. Nexus
+AI education · Built with UNC's Shuford Entrepreneurship Program
+College athletes with name, image and likeness (NIL) deals get paid like small businesses but get generic financial advice. Nexus builds each athlete a course around their own deals, and its AI tutor answers questions by citing the lesson it used. Tax figures come from calculators instead of the model, and anything that reads like personal financial advice goes to an educator.
+
+03. Aventos Analytics
+Brand visibility in AI answers · Live
+When people ask ChatGPT or Google's AI about a product, the answer shapes what they buy. Aventos Analytics turns a brand's Google Ads keywords into hundreds of prompts, runs them across AI models and records every mention, claim and source. Brands see their share of voice against competitors and which sources drive it.
+
 ## How a project runs
 
 1. A short call. Twenty minutes on how customers find you, buy from you and come back. If an app won't help, I'll tell you.
