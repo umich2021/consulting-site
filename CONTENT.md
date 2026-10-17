@@ -1,4 +1,4 @@
-# Site copy: consulting.jimsonyang.com
+# Site copy: corrinotech.com
 
 Source of truth for every word on the site. The React page reads the same text from `src/content/site.ts`; change both together.
 
@@ -6,14 +6,16 @@ Facts come from jimsonyang.com (`site-content.json` in `umich2021/jimson-sWebsit
 
 ## Page title and meta
 
-- Title: Jimson Yang · Mobile app consulting
-- Description: Jimson Yang builds branded iOS and Android apps for local businesses: ordering, rewards, booking and push notifications under your own name. Based in San Francisco.
+- Title: Corrino Tech · Jimson Yang, mobile app consulting
+- Description: Corrino Tech: Jimson Yang builds branded iOS and Android apps for local businesses: ordering, rewards, booking and push notifications under your own name. Based in San Francisco.
 
 ## Intro
 
 Jimson Yang
 
-Label: Mobile app consulting
+Label: Corrino Tech · Mobile app consulting
+
+Header wordmark: Corrino Tech
 
 I build iOS and Android apps for local businesses, published under your business's own name. I've worked on both the sales and the engineering side of startups, so I build the features that bring customers back first.
 
@@ -61,4 +63,4 @@ Want to see your business as an app? I can bring a demo to you.
 - Email: jimsonyangbusiness@gmail.com
 - Call or text: 269-883-0074
 
-Footer: © 2026 Jimson Yang · jimsonyang.com
+Footer: © 2026 Corrino Tech · Jimson Yang · jimsonyang.com

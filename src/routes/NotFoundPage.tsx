@@ -4,7 +4,7 @@ import styles from './HomePage.module.css'
 export function NotFoundPage() {
   return (
     <>
-      <title>Page not found · Jimson Yang</title>
+      <title>Page not found · Corrino Tech</title>
       <section className={styles.intro} aria-labelledby="not-found-heading">
         <h1 id="not-found-heading" className={styles.name}>
           404

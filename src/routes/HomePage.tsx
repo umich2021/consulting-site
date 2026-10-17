@@ -17,7 +17,7 @@ function formatIndex(index: number) {
 export function HomePage() {
   return (
     <>
-      <title>Jimson Yang · Mobile app consulting</title>
+      <title>Corrino Tech · Jimson Yang, mobile app consulting</title>
 
       <section className={styles.intro} aria-labelledby="intro-heading">
         <h1 id="intro-heading" className={styles.name}>

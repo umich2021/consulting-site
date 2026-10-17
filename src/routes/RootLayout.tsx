@@ -18,7 +18,7 @@ export function RootLayout() {
       <header className={styles.header}>
         <Link to="/" className={styles.wordmark}>
           <span className={styles.square} aria-hidden="true" />
-          {INTRO.name}
+          {INTRO.company}
         </Link>
         {isHome && (
           <nav aria-label="Sections" className={styles.nav}>
@@ -38,7 +38,9 @@ export function RootLayout() {
       </main>
 
       <footer className={styles.footer}>
-        <span>© 2026 {INTRO.name}</span>
+        <span>
+          © 2026 {INTRO.company} · {INTRO.name}
+        </span>
         <a href={CONTACT.personalSite}>{CONTACT.personalSiteLabel}</a>
       </footer>
 

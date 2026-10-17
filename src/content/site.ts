@@ -4,6 +4,7 @@ export const CONTACT = {
   email: 'jimsonyangbusiness@gmail.com',
   phoneDisplay: '269-883-0074',
   phoneHref: 'tel:+12698830074',
+  site: 'corrinotech.com',
   personalSite: 'https://www.jimsonyang.com',
   personalSiteLabel: 'jimsonyang.com',
 } as const
@@ -14,7 +15,8 @@ export type BackgroundItem = { name: string; body: string }
 
 export const INTRO = {
   name: 'Jimson Yang',
-  role: 'Mobile app consulting',
+  company: 'Corrino Tech',
+  role: 'Corrino Tech · Mobile app consulting',
   lead: "I build iOS and Android apps for local businesses, published under your business's own name. I've worked on both the sales and the engineering side of startups, so I build the features that bring customers back first.",
   location: 'Based in San Francisco.',
 }
