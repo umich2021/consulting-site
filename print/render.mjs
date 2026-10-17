@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const exe = process.argv[2];
+const b = await chromium.launch({ executablePath: exe });
+const url = 'file://' + process.cwd() + '/cards.html';
+const p = await b.newPage({ viewport: { width: 750, height: 900 }, deviceScaleFactor: 3 });
+await p.goto(url); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(800);
+for (const id of ['front', 'back']) await p.locator('#' + id).screenshot({ path: `${id}-raw.png` });
+const pdfPage = await b.newPage();
+await pdfPage.goto(url); await pdfPage.evaluate(() => document.fonts.ready); await pdfPage.waitForTimeout(800);
+await pdfPage.pdf({ path: 'corrino-tech-card.pdf', width: '3.75in', height: '2.25in', scale: 0.48, printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
+await b.close();
