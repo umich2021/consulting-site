@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone wall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #183a2e;
+  --brass: #c8a464;
+  --ink: #0f1a16;
+  --stage-w: 1600px;
+  --stage-h: 900px;
+  --phone-w: 230px;
+  --phone-h: 480px;
+  --gap: 44px;
+}
+* { box-sizing: border-box; margin: 0; }
+body { width: var(--stage-w); height: var(--stage-h); overflow: hidden; background: #050807; font-family: 'Manrope', sans-serif; }
+.stage { position: relative; width: 100%; height: 100%; overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 40%, #12261e 0%, #08100c 55%, #040605 100%); }
+.wall { position: absolute; left: 50%; top: 50%; width: 3400px; height: 2600px; margin-left: -1700px; margin-top: -1300px;
+  display: flex; justify-content: center; gap: var(--gap); transform-style: preserve-3d; }
+.col { display: flex; flex-direction: column; gap: var(--gap); will-change: transform; }
+.phone { position: relative; width: var(--phone-w); height: var(--phone-h); border-radius: 38px; background: #0b0d0c; padding: 9px;
+  box-shadow: 0 0 0 1.5px #2a332e, 0 30px 60px rgba(0,0,0,0.55); flex-shrink: 0; }
+.screen { position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; }
+.notch { position: absolute; top: 10px; left: 50%; width: 70px; height: 20px; margin-left: -35px; border-radius: 12px; background: #050505; z-index: 3; }
+.toast { position: absolute; left: 10px; right: 10px; top: 38px; z-index: 4; border-radius: 16px; padding: 10px 12px;
+  background: rgba(250,247,240,0.96); color: var(--ink); font-size: 11px; line-height: 1.3; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+.toast b { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #6e5e3a; margin-bottom: 2px; }
+.vignette { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(80% 70% at 50% 45%, transparent 40%, rgba(4,6,5,0.85) 100%); }
+.glow { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(40% 35% at 30% 20%, rgba(200,164,100,0.18), transparent 70%); }
+
+/* app screens */
+.app { position: absolute; inset: 0; padding: 40px 16px 16px; display: flex; flex-direction: column; gap: 10px; }
+.app h4 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+.app small { font-size: 10px; opacity: 0.7; }
+.pill { border-radius: 999px; padding: 6px 10px; font-size: 11px; font-weight: 700; text-align: center; }
+.tile { border-radius: 14px; padding: 10px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stamp { width: 26px; height: 26px; border-radius: 50%; }
+.stamps { display: grid; grid-template-columns: repeat(5, 26px); gap: 8px; justify-content: center; }
+.bar { height: 8px; border-radius: 4px; }
+.slot { border-radius: 10px; padding: 9px 10px; font-size: 12px; font-weight: 700; display: flex; justify-content: space-between; }
+.item { display: flex; gap: 10px; align-items: center; }
+.thumb { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; }
+.tabbar { margin-top: auto; display: flex; justify-content: space-around; padding-top: 8px; }
+.tabbar i { width: 18px; height: 18px; border-radius: 6px; display: block; opacity: 0.5; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="wall" id="wall"></div>
+  <div class="glow"></div>
+  <div class="vignette"></div>
+</div>
+<script>
+const LOOP_SECONDS = 20
+const COLUMNS = 11
+const PHONES_PER_COLUMN = 5
+const STEP = 480 + 44
+
+// Each screen is a tiny made-up app for a local business. Colors stay within one palette per app.
+const SCREENS = [
+  (s) => `<div class="app" style="background:#f6efe4;color:#3b2417">
+    <small>Good morning, Ana</small><h4>Mission Grounds</h4>
+    <div class="tile" style="background:#3b2417;color:#f6efe4"><small>Rewards</small>
+      <div style="font-size:22px;font-weight:800;margin:4px 0 8px">8 of 10</div>
+      <div class="stamps">${Array.from({length:10},(_,i)=>`<span class="stamp" style="background:${i<8?'#d9a05b':'rgba(246,239,228,0.18)'}"></span>`).join('')}</div></div>
+    <div class="grid2"><div class="tile" style="background:#ead9c2;height:70px"></div><div class="tile" style="background:#e3c9a5;height:70px"></div></div>
+    <div class="pill" style="background:#d9a05b;color:#3b2417">Order ahead</div>
+    <div class="tabbar">${'<i style="background:#3b2417"></i>'.repeat(4)}</div></div>`,
+  (s) => `<div class="app" style="background:#101418;color:#eef2f5">
+    <small>Book a cut</small><h4>Valencia Cuts</h4>
+    <small style="opacity:.6">Saturday</small>
+    ${['10:00','10:45','11:30','1:15','2:00'].map((t,i)=>`<div class="slot" style="background:${i===2?'#4fb3a9':'#1d242b'};color:${i===2?'#0b1416':'#eef2f5'}"><span>${t}</span><span>${i===2?'Booked':'Open'}</span></div>`).join('')}
+    <div class="tabbar">${'<i style="background:#eef2f5"></i>'.repeat(4)}</div></div>`,
+  (s) => `<div class="app" style="background:#eef3ea;color:#1f3a28">
+    <small>Pickup in 20 min</small><h4>Fern &amp; Co.</h4>
+    ${[['#9cc49a','Monstera, large','$48'],['#c9dcb4','Pothos','$18'],['#7fae8a','Fiddle leaf','$62']].map(([c,n,p])=>`<div class="item"><span class="thumb" style="background:${c}"></span><div style="flex:1"><div style="font-size:12px;font-weight:700">${n}</div><small>${p}</small></div><span class="pill" style="background:#1f3a28;color:#eef3ea;padding:4px 9px">+</span></div>`).join('')}
+    <div class="pill" style="background:#1f3a28;color:#eef3ea;margin-top:6px">Checkout · $128</div>
+    <div class="tabbar">${'<i style="background:#1f3a28"></i>'.repeat(4)}</div></div>`,
+  (s) => `<div class="app" style="background:#1b1426;color:#f3ecff">
+    <small>This week</small><h4>Twin Peaks Yoga</h4>
+    ${[['Mon','Vinyasa','6:30 pm',.8],['Wed','Yin','7:00 pm',.45],['Fri','Power','6:00 pm',.95],['Sun','Restore','10:00 am',.6]].map(([d,n,t,f])=>`<div class="tile" style="background:#2a2040"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700"><span>${d} · ${n}</span><span>${t}</span></div><div class="bar" style="margin-top:7px;background:#3a2f55"><div class="bar" style="width:${f*100}%;background:#c39bff"></div></div></div>`).join('')}
+    <div class="tabbar">${'<i style="background:#f3ecff"></i>'.repeat(4)}</div></div>`,
+  (s) => `<div class="app" style="background:#fbf4ea;color:#4a1f1a">
+    <small>Fresh at 7 am</small><h4>Noe Bakehouse</h4>
+    <div class="tile" style="background:#c8553d;color:#fbf4ea;height:110px;display:flex;flex-direction:column;justify-content:flex-end"><small style="opacity:.9">Today only</small><div style="font-size:16px;font-weight:800">Morning buns, 2 for $7</div></div>
+    <div class="grid2"><div class="tile" style="background:#f0d9bd;height:64px"></div><div class="tile" style="background:#e8c7a0;height:64px"></div><div class="tile" style="background:#f3e3cc;height:64px"></div><div class="tile" style="background:#e2b98e;height:64px"></div></div>
+    <div class="tabbar">${'<i style="background:#4a1f1a"></i>'.repeat(4)}</div></div>`,
+  (s) => `<div class="app" style="background:${'#183a2e'};color:#f2ebdd">
+    <small>Member · Gold</small><h4 style="font-family:'Playfair Display',serif;font-weight:600">The Green Room</h4>
+    <div class="tile" style="background:rgba(242,235,221,0.08);border:1px solid #c8a464"><small>Points</small><div style="font-size:26px;font-weight:800;color:#c8a464">2,450</div><div class="bar" style="background:rgba(242,235,221,0.15);margin-top:6px"><div class="bar" style="width:72%;background:#c8a464"></div></div></div>
+    ${['Happy hour until 6','New arrivals','Order for pickup'].map(n=>`<div class="slot" style="background:rgba(242,235,221,0.06);font-weight:600"><span>${n}</span><span style="color:#c8a464">›</span></div>`).join('')}
+    <div class="tabbar">${'<i style="background:#c8a464"></i>'.repeat(4)}</div></div>`,
+]
+
+const TOASTS = [
+  ['Mission Grounds', 'Your 9th coffee is on us today.'],
+  ['Valencia Cuts', 'Reminder: Saturday 11:30 with Leo.'],
+  ['Fern & Co.', 'Your order is ready for pickup.'],
+  ['Noe Bakehouse', 'Morning buns are out of the oven.'],
+  ['The Green Room', 'Happy hour: 20% off until 6 pm.'],
+  ['Twin Peaks Yoga', '2 spots left in Friday Power.'],
+]
+
+// Seeded random so every render of the wall is identical.
+let seed = 7
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
+
+const wall = document.getElementById('wall')
+const columns = []
+for (let c = 0; c < COLUMNS; c += 1) {
+  const col = document.createElement('div')
+  col.className = 'col'
+  const picks = Array.from({ length: PHONES_PER_COLUMN }, (_, i) => (c * 2 + i) % SCREENS.length)
+  // Two copies of the same run so the column can scroll one run and wrap seamlessly.
+  const phones = [...picks, ...picks].map((pick, i) => {
+    const toast = rand() < 0.45 ? TOASTS[Math.floor(rand() * TOASTS.length)] : null
+    return `<div class="phone"><div class="screen">${SCREENS[pick]()}<span class="notch"></span>${
+      toast ? `<div class="toast" data-phase="${(rand()).toFixed(3)}"><b>${toast[0]}</b>${toast[1]}</div>` : ''
+    }</div></div>`
+  })
+  col.innerHTML = phones.join('')
+  wall.appendChild(col)
+  columns.push({ el: col, dir: c % 2 === 0 ? 1 : -1, speed: c % 3 === 0 ? 2 : 1, offset: rand() * STEP })
+}
+
+const toasts = [...document.querySelectorAll('.toast')]
+
+// Pure function of time, so frames can be captured one by one and the loop closes exactly.
+window.renderAt = (seconds) => {
+  const p = (seconds % LOOP_SECONDS) / LOOP_SECONDS
+  const turn = p * Math.PI * 2
+  wall.style.transform =
+    `perspective(2600px) rotateX(${48 + Math.sin(turn) * 2}deg) rotateZ(${-26 + Math.sin(turn) * 1.5}deg) translateY(${Math.cos(turn) * 30}px) scale(0.86)`
+  for (const col of columns) {
+    const distance = PHONES_PER_COLUMN * STEP
+    const y = -(((p * col.speed * distance * col.dir) + col.offset) % distance + distance) % distance
+    col.el.style.transform = `translateY(${y}px)`
+  }
+  for (const toast of toasts) {
+    // Each toast drops in and out twice per loop at its own phase.
+    const local = (p * 2 + Number(toast.dataset.phase)) % 1
+    const shown = local < 0.35 ? Math.min(1, local / 0.06, (0.35 - local) / 0.06) : 0
+    toast.style.opacity = shown.toFixed(3)
+    toast.style.transform = `translateY(${(1 - shown) * -24}px)`
+  }
+}
+window.renderAt(0)
+</script>
+</body>
+</html>

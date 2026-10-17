@@ -1,0 +1,32 @@
+{
+  "model": "google/veo-3.1-fast",
+  "duration": 6,
+  "resolution": "1080p",
+  "aspect_ratio": "16:9",
+  "shots": [
+    {
+      "id": "01-street",
+      "prompt": "Cinematic slow dolly shot down a San Francisco neighborhood street at blue hour after light rain. Small independent shops with warm glowing windows, wet pavement reflecting the lights, a few people walking by. Shallow depth of field, moody teal and amber color grade, film grain. No readable text, no logos. Full-frame image edge to edge with no vignette, no black borders and no letterbox."
+    },
+    {
+      "id": "02-phone",
+      "prompt": "Extreme close-up macro shot of a smartphone in a person's hand as the screen lights up, soft glow on their fingers, a cozy cafe softly out of focus behind with warm bokeh lights. Slow push-in, shallow depth of field, cinematic color grade, film grain. The screen shows abstract colorful shapes only, no readable text, no logos. Full-frame image edge to edge with no vignette, no black borders and no letterbox."
+    },
+    {
+      "id": "03-aerial",
+      "prompt": "Smooth aerial drone shot gliding over the hills of San Francisco at golden hour, rows of Victorian houses and rooftops, fog rolling in from the ocean in the distance, long shadows. Cinematic, slow forward motion, rich warm color grade, film grain. No text. Full-frame image edge to edge with no vignette, no black borders and no letterbox."
+    },
+    {
+      "id": "04-counter",
+      "prompt": "Cinematic medium shot inside a small neighborhood shop with warm lighting. A customer holds their phone up to a payment reader on the counter and the shop owner smiles and hands over a paper bag. Slow motion, shallow depth of field, natural warm light from the window, film grain. No readable text, no logos. Full-frame image edge to edge with no vignette, no black borders and no letterbox."
+    },
+    {
+      "id": "05-light",
+      "prompt": "Abstract cinematic macro shot of thin strands of fiber optic light pulsing and flowing through darkness, green and gold light trails, slow drifting camera, bokeh, very shallow depth of field, elegant and calm. No text. Full-frame image edge to edge with no vignette, no black borders and no letterbox."
+    },
+    {
+      "id": "06-night",
+      "prompt": "Cinematic wide shot of the San Francisco skyline and Bay Bridge at night from a hill, city lights twinkling, slow cars streaming light trails below, slow lateral camera slide, deep blue and amber color grade, film grain. No text. Full-frame image edge to edge with no vignette, no black borders and no letterbox."
+    }
+  ]
+}
