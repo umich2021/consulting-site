@@ -1,5 +1,5 @@
-// Generates the cinematic b-roll clips listed in shots.json through OpenRouter's video API.
-// Run from the repo root: node --env-file=video/.env video/generate.mjs [shot-id ...]
+// Generates the cinematic b-roll clips listed in a shot file through OpenRouter's video API.
+// Run from the repo root: node --env-file=video/.env video/generate.mjs [--shots=shots-ad.json] [shot-id ...]
 // Clips land in video/clips/ (not committed). Existing clips are skipped, so reruns only pay for missing shots.
 import { readFile, writeFile, mkdir, access } from 'node:fs/promises'
 
@@ -10,8 +10,10 @@ const MAX_POLLS = 80
 const apiKey = process.env.OPENROUTER_API_KEY
 if (!apiKey) throw new Error('OPENROUTER_API_KEY is missing. Put it in video/.env.')
 
-const config = JSON.parse(await readFile(new URL('./shots.json', import.meta.url), 'utf8'))
-const only = process.argv.slice(2)
+const args = process.argv.slice(2)
+const shotsFile = args.find((arg) => arg.startsWith('--shots='))?.slice('--shots='.length) ?? 'shots.json'
+const config = JSON.parse(await readFile(new URL(`./${shotsFile}`, import.meta.url), 'utf8'))
+const only = args.filter((arg) => !arg.startsWith('--'))
 const shots = config.shots.filter((shot) => only.length === 0 || only.includes(shot.id))
 const clipsDir = new URL('./clips/', import.meta.url)
 await mkdir(clipsDir, { recursive: true })
@@ -47,7 +49,7 @@ async function generate(shot) {
       method: 'POST',
       body: JSON.stringify({
         model: config.model,
-        prompt: shot.prompt,
+        prompt: config.style ? `${shot.prompt} ${config.style}` : shot.prompt,
         duration: config.duration,
         resolution: config.resolution,
         aspect_ratio: config.aspect_ratio,

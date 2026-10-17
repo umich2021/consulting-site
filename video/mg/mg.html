@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion graphics scenes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #070b09; --green: #183a2e; --brass: #c8a464; --cream: #f2ebdd; --muted: #8f8a7c; }
+* { box-sizing: border-box; margin: 0; }
+body { width: 1600px; height: 900px; overflow: hidden; background: var(--bg); font-family: 'Manrope', sans-serif; color: var(--cream); }
+canvas { position: absolute; inset: 0; }
+.scene { position: absolute; inset: 0; display: none; }
+.scene.on { display: block; }
+.phone { position: absolute; left: 50%; top: 50%; width: 330px; height: 690px; margin: -345px 0 0 -165px; border-radius: 52px; background: #0b0d0c; padding: 12px; box-shadow: 0 0 0 2px #2a332e, 0 40px 120px rgba(0,0,0,0.6); }
+.screen { position: relative; width: 100%; height: 100%; border-radius: 42px; overflow: hidden; background: var(--green); padding: 64px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
+.screen h4 { font-family: 'Playfair Display', serif; font-size: 28px; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-radius: 16px; background: rgba(242,235,221,0.07); font-size: 16px; font-weight: 700; }
+.btn { margin-top: auto; padding: 18px; border-radius: 999px; text-align: center; font-weight: 800; font-size: 18px; background: var(--brass); color: #1b1408; }
+.toast { position: absolute; left: 14px; right: 14px; top: 20px; border-radius: 22px; padding: 16px 18px; background: rgba(250,247,240,0.97); color: #0f1a16; font-size: 15px; font-weight: 600; box-shadow: 0 14px 40px rgba(0,0,0,0.4); }
+.toast b { display: block; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #6e5e3a; margin-bottom: 4px; }
+.cards { position: absolute; left: 50%; top: 0; width: 560px; margin-left: -280px; }
+.card { position: absolute; left: 0; right: 0; border-radius: 24px; padding: 22px 26px; background: rgba(250,247,240,0.96); color: #0f1a16; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+.card b { display: block; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #6e5e3a; margin-bottom: 6px; }
+.card span { font-size: 22px; font-weight: 700; }
+.icons { position: absolute; left: 50%; top: 50%; display: grid; grid-template-columns: repeat(8, 120px); gap: 34px; transform: translate(-50%, -50%); }
+.icon { width: 120px; height: 120px; border-radius: 30px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 52px; }
+</style>
+</head>
+<body>
+<canvas id="cv" width="1600" height="900"></canvas>
+
+<div class="scene" id="phone">
+  <div class="phone"><div class="screen">
+    <small style="color:var(--brass);font-weight:700;letter-spacing:2px;font-size:13px">ORDER AHEAD</small>
+    <h4>The Green Room</h4>
+    <div class="row"><span>Cold brew, large</span><span style="color:var(--brass)">$6</span></div>
+    <div class="row"><span>Morning bun</span><span style="color:var(--brass)">$4</span></div>
+    <div class="row"><span>Pickup</span><span style="color:var(--brass)">8:15 am</span></div>
+    <div class="btn" id="pay">Pay $10</div>
+    <div class="toast" id="ready"><b>The Green Room</b>Your order is ready. Skip the line.</div>
+  </div></div>
+</div>
+
+<div class="scene" id="stack"><div class="cards" id="cards"></div></div>
+
+<div class="scene" id="mosaic"><div class="icons" id="icons"></div></div>
+
+<script>
+const W = 1600, H = 900
+const BRASS = '#c8a464', CREAM = '#f2ebdd', GREEN = '#183a2e'
+const cv = document.getElementById('cv')
+const ctx = cv.getContext('2d')
+const ease = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3)
+
+let seed = 11
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
+
+// Street grid for the map scene: a tilted block grid with shop pins.
+const streets = []
+for (let i = -12; i <= 12; i += 1) streets.push(i)
+const pins = Array.from({ length: 26 }, () => ({ x: (rand() - 0.5) * 1500, y: (rand() - 0.5) * 820, at: rand() * 1.4 }))
+
+// Node graph: shops on the left, phones on the right.
+const shops = Array.from({ length: 7 }, (_, i) => ({ x: 360, y: 150 + i * 100 }))
+const phones = Array.from({ length: 11 }, (_, i) => ({ x: 1240 + (i % 2) * 70, y: 110 + i * 68 }))
+const links = []
+shops.forEach((s, si) => { for (let k = 0; k < 4; k += 1) links.push({ s, p: phones[Math.floor(rand() * phones.length)], at: si * 0.08 + rand() * 0.5 }) })
+
+const NOTES = [
+  ['Mission Grounds', 'Your 9th coffee is on us.'],
+  ['Valencia Cuts', 'Saturday 11:30 is confirmed.'],
+  ['Fern & Co.', 'Your plants are ready for pickup.'],
+  ['The Green Room', 'Happy hour: 20% off until 6 pm.'],
+  ['Noe Bakehouse', 'Morning buns just came out.'],
+  ['Twin Peaks Yoga', '2 spots left in Friday Power.'],
+]
+document.getElementById('cards').innerHTML = NOTES.map(([a, b]) => `<div class="card"><b>${a}</b><span>${b}</span></div>`).join('')
+const ICON_COLORS = [['#3b2417','#d9a05b'],['#101418','#4fb3a9'],['#1f3a28','#eef3ea'],['#c8553d','#fbf4ea'],['#2a2040','#c39bff'],['#183a2e','#c8a464'],['#f2ebdd','#183a2e'],['#0f1a16','#f2ebdd']]
+document.getElementById('icons').innerHTML = Array.from({ length: 24 }, (_, i) => {
+  const k = (i * 5 + Math.floor(i / 8) * 3) % 8
+  const [bg, fg] = ICON_COLORS[k]
+  return `<div class="icon" style="background:${bg};color:${fg}">${'MVFNTGBS'[(k + Math.floor(i / 8)) % 8]}</div>`
+}).join('')
+
+function clear() { ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#070b09'; ctx.fillRect(0, 0, W, H) }
+
+const SCENES = {
+  rings(t) {
+    clear()
+    ctx.save(); ctx.translate(W / 2, H / 2)
+    for (let i = 0; i < 26; i += 1) {
+      const r = ((i * 28 + t * 160) % 760)
+      ctx.strokeStyle = `rgba(200,164,100,${Math.max(0, 0.9 - r / 760)})`
+      ctx.lineWidth = 1.6
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke()
+    }
+    ctx.fillStyle = CREAM; ctx.beginPath(); ctx.arc(0, 0, 6 + Math.sin(t * 6) * 2, 0, Math.PI * 2); ctx.fill()
+    ctx.restore()
+  },
+  map(t) {
+    clear()
+    ctx.save(); ctx.translate(W / 2, H / 2); ctx.rotate(-0.42); ctx.scale(1 + t * 0.05, 1 + t * 0.05)
+    const reveal = ease(t / 0.9)
+    ctx.strokeStyle = 'rgba(200,164,100,0.32)'; ctx.lineWidth = 1.2
+    for (const i of streets) {
+      const len = 1100 * reveal
+      ctx.beginPath(); ctx.moveTo(i * 90, -len); ctx.lineTo(i * 90, len); ctx.stroke()
+      ctx.beginPath(); ctx.moveTo(-len * 1.4, i * 70); ctx.lineTo(len * 1.4, i * 70); ctx.stroke()
+    }
+    ctx.restore()
+    for (const pin of pins) {
+      const k = ease((t - pin.at) / 0.25)
+      if (k <= 0) continue
+      const x = W / 2 + pin.x, y = H / 2 + pin.y
+      ctx.fillStyle = `rgba(200,164,100,${0.18 * k})`; ctx.beginPath(); ctx.arc(x, y, 30 * k, 0, Math.PI * 2); ctx.fill()
+      ctx.fillStyle = CREAM; ctx.beginPath(); ctx.arc(x, y, 5 * k, 0, Math.PI * 2); ctx.fill()
+    }
+  },
+  nodes(t) {
+    clear()
+    for (const l of links) {
+      const k = ease((t - l.at) / 0.6)
+      if (k <= 0) continue
+      ctx.strokeStyle = 'rgba(200,164,100,0.55)'; ctx.lineWidth = 1.2
+      ctx.beginPath(); ctx.moveTo(l.s.x, l.s.y)
+      const mx = (l.s.x + l.p.x) / 2
+      const ex = l.s.x + (l.p.x - l.s.x) * k, ey = l.s.y + (l.p.y - l.s.y) * k
+      ctx.bezierCurveTo(mx, l.s.y, mx, ey, ex, ey); ctx.stroke()
+      if (k > 0.98) { ctx.fillStyle = BRASS; ctx.beginPath(); ctx.arc(l.p.x, l.p.y, 4, 0, Math.PI * 2); ctx.fill() }
+    }
+    ctx.font = '600 15px Manrope'
+    const SHOP_NAMES = ['Mission Grounds', 'Valencia Cuts', 'Fern & Co.', 'The Green Room', 'Noe Bakehouse', 'Twin Peaks Yoga', 'Corner Market']
+    shops.forEach((s, i) => { ctx.fillStyle = GREEN; ctx.strokeStyle = BRASS; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.roundRect(s.x - 190, s.y - 26, 190, 52, 10); ctx.fill(); ctx.stroke(); ctx.fillStyle = CREAM; ctx.textBaseline = 'middle'; ctx.fillText(SHOP_NAMES[i], s.x - 174, s.y) })
+    for (const p of phones) { ctx.strokeStyle = 'rgba(242,235,221,0.7)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.roundRect(p.x, p.y - 22, 26, 44, 6); ctx.stroke() }
+  },
+  phone(t) {
+    clear()
+    const pay = document.getElementById('pay'), ready = document.getElementById('ready')
+    const press = t > 0.6 && t < 0.8
+    pay.style.transform = `scale(${press ? 0.95 : 1})`
+    pay.style.filter = press ? 'brightness(1.15)' : 'none'
+    const k = ease((t - 0.9) / 0.35)
+    ready.style.opacity = String(k); ready.style.transform = `translateY(${(1 - k) * -40}px)`
+    const g = ctx.createRadialGradient(W / 2, H / 2, 50, W / 2, H / 2, 700)
+    g.addColorStop(0, 'rgba(200,164,100,0.16)'); g.addColorStop(1, 'rgba(0,0,0,0)')
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H)
+  },
+  stack(t) {
+    clear()
+    document.querySelectorAll('#cards .card').forEach((card, i) => {
+      const k = ease((t - i * 0.22) / 0.4)
+      const slot = 140 + i * 112
+      card.style.top = `${slot + (1 - k) * 220}px`
+      card.style.opacity = String(k)
+    })
+  },
+  mosaic(t) {
+    clear()
+    document.querySelectorAll('#icons .icon').forEach((icon, i) => {
+      const k = ease((t - ((i * 7) % 24) * 0.035) / 0.3)
+      icon.style.opacity = String(k); icon.style.transform = `scale(${0.6 + 0.4 * k})`
+    })
+  },
+}
+
+window.setScene = (name) => {
+  document.querySelectorAll('.scene').forEach((el) => el.classList.toggle('on', el.id === name))
+  window.currentScene = SCENES[name]
+}
+window.renderAt = (t) => window.currentScene(t)
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "model": "google/veo-3.1-fast",
+  "duration": 4,
+  "resolution": "1080p",
+  "aspect_ratio": "16:9",
+  "style": "Shot on 35mm film, deep forest green and warm brass color grade, rich shadows, fine film grain. Full-frame image edge to edge with no vignette, no black borders and no letterbox. No readable text, no logos.",
+  "shots": [
+    { "id": "ad-01-brass", "prompt": "Extreme macro of molten brass slowly swirling and rippling into concentric rings against a near-black green background, glowing highlights." },
+    { "id": "ad-02-eye", "prompt": "Extreme close-up of a human eye, the iris reflecting the soft green glow of a phone screen, the pupil slowly adjusting, shallow depth of field." },
+    { "id": "ad-03-archival", "prompt": "Vintage 1960s 16mm film footage of a shopkeeper in an apron unlocking the wooden door of a small corner store at dawn and stepping inside, faded colors, gate weave and dust." },
+    { "id": "ad-04-ladies", "prompt": "Fast aerial drone shot rising over the Painted Ladies Victorian houses in San Francisco at golden hour, fog rolling over the hills behind, the city skyline in the distance." },
+    { "id": "ad-05-streetcar", "prompt": "Point of view from the front of a San Francisco cable car moving down a steep hill toward the bay, motion blur on the buildings at the edges, morning light." },
+    { "id": "ad-06-latte", "prompt": "Slow motion close-up of a barista's hands pouring steamed milk into an espresso cup to form latte art on a wooden counter, warm window light." },
+    { "id": "ad-07-pixels", "prompt": "Extreme macro of smartphone screen subpixels lighting up in waves of green and gold, abstract, slowly drifting focus." },
+    { "id": "ad-08-moss", "prompt": "A lone person in a long coat walking across a vast field of green moss toward a small modern glass pavilion under an overcast sky, wide minimal composition, slow camera push." },
+    { "id": "ad-09-bell", "prompt": "Slow motion close-up of a small brass bell above a shop door swinging and ringing as the door opens, warm interior light behind." },
+    { "id": "ad-10-neon", "prompt": "A curved neon tube sign flickering on at dusk in a shop window in the Mission District, green glow reflecting on wet glass, abstract shape with no letters." },
+    { "id": "ad-11-gate", "prompt": "Aerial shot of thick fog rolling through the cables and orange towers of the Golden Gate Bridge, slow sideways drift, soft morning light." },
+    { "id": "ad-12-thumb", "prompt": "Close-up of a person on a city sidewalk at night smiling as they look down at their phone, the screen's soft green light on their face, bokeh of street lights behind." },
+    { "id": "ad-13-ink", "prompt": "Slow motion of deep green ink dropping into clear water and blooming into swirling clouds, black background, macro." },
+    { "id": "ad-14-shelves", "prompt": "Slow dolly past wooden shelves of a small neighborhood shop lined with glass jars, plants and paper bags, warm practical lights, shallow depth of field." }
+  ]
+}
