@@ -41,7 +41,7 @@ Regulated industries: I also build for regulated industries, where Apple and Goo
 
 ## Selected work
 
-Screenshots in `public/work/`. Nexus's screenshot comes from endaltechnologies.com (the cofounder's consultancy); the text below is rewritten.
+Screenshots in `public/images/work/`. Nexus's screenshot comes from endaltechnologies.com (the cofounder's consultancy); the text below is rewritten.
 
 01. Snag (links to snaganything.com)
 Marketplace · Live
