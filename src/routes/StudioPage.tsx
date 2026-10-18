@@ -5,17 +5,17 @@ import {
   CUE_MOTIONS,
   CUE_POSITIONS,
   CUE_SIZES,
+  MAX_DIM,
   parseVideoWithText,
   type TextCue,
   type VideoWithText,
 } from '../lib/videoCues'
 import styles from './StudioPage.module.css'
 
-const SITE_VERSION = parseVideoWithText(heroVideo, { src: '/media/tech-reel.mp4', blank: true, cues: [] })
-const DRAFT_KEY = 'corrino-studio-draft-v1'
+const SITE_VERSION = parseVideoWithText(heroVideo, { src: '/media/endal-reel.mp4', blank: true, dim: 0, cues: [] })
+const DRAFT_KEY = 'corrino-studio-draft-v2'
 const VIDEOS = [
-  { src: '/media/tech-reel.mp4', poster: '/media/tech-reel-poster.jpg', label: 'Tech reel, satellite ending' },
-  { src: '/media/tech-reel-city.mp4', poster: '/media/tech-reel-city-poster.jpg', label: 'Tech reel, city ending' },
+  { src: '/media/endal-reel.mp4', poster: '/media/endal-reel-poster.jpg', label: 'Endal Technologies reel' },
   { src: '/media/wall-apps.mp4', poster: '/media/wall-apps-poster.jpg', label: 'Wall of apps' },
 ]
 
@@ -107,6 +107,18 @@ export function StudioPage() {
               onChange={(event) => setDraft((current) => ({ ...current, blank: event.target.checked }))}
             />
             <span>Blank (no text)</span>
+          </label>
+          <label className={styles.field}>
+            <span>Darken video: {Math.round(draft.dim * 100)}%</span>
+            <input
+              id="studio-dim"
+              type="range"
+              min="0"
+              max={MAX_DIM}
+              step="0.05"
+              value={draft.dim}
+              onChange={(event) => setDraft((current) => ({ ...current, dim: Number(event.target.value) }))}
+            />
           </label>
           <button type="button" className={styles.primary} onClick={addCue}>
             Add text at playhead

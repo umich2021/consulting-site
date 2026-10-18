@@ -3,7 +3,7 @@ import { parseVideoWithText } from '../lib/videoCues'
 import { VideoStage } from './VideoStage'
 import styles from './HeroVideo.module.css'
 
-const VIDEO = parseVideoWithText(heroVideo, { src: '/media/tech-reel.mp4', blank: true, cues: [] })
+const VIDEO = parseVideoWithText(heroVideo, { src: '/media/endal-reel.mp4', blank: true, dim: 0, cues: [] })
 
 export function HeroVideo() {
   return (

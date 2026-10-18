@@ -16,6 +16,13 @@
   object-fit: cover;
 }
 
+.dim {
+  position: absolute;
+  inset: 0;
+  background: var(--color-wall-bg);
+  pointer-events: none;
+}
+
 .layer {
   position: absolute;
   inset: 0;

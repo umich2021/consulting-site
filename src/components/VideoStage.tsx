@@ -71,6 +71,7 @@ export function VideoStage({ video, controls = false, videoRef, label }: VideoSt
         aria-label={label}
         aria-hidden={label ? undefined : true}
       />
+      {video.dim > 0 && <div className={styles.dim} style={{ opacity: video.dim }} aria-hidden="true" />}
       {!video.blank && (
         <div className={styles.layer} aria-live="off">
           {video.cues.map((cue, index) => {

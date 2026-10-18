@@ -33,8 +33,12 @@ export type VideoWithText = {
   poster?: string
   /** true hides every cue and shows the footage on its own */
   blank: boolean
+  /** 0 to 0.8: how much to darken the footage so text reads over bright frames */
+  dim: number
   cues: TextCue[]
 }
+
+export const MAX_DIM = 0.8
 
 const isOneOf = <T extends readonly string[]>(list: T, value: unknown): value is T[number] =>
   typeof value === 'string' && (list as readonly string[]).includes(value)
@@ -48,6 +52,7 @@ export function parseVideoWithText(value: unknown, fallback: VideoWithText): Vid
     src: typeof data.src === 'string' ? data.src : fallback.src,
     poster: typeof data.poster === 'string' ? data.poster : fallback.poster,
     blank: data.blank === true,
+    dim: Number.isFinite(Number(data.dim)) ? Math.min(MAX_DIM, Math.max(0, Number(data.dim))) : fallback.dim,
     cues: cues.flatMap((raw) => {
       if (typeof raw !== 'object' || raw === null) return []
       const cue = raw as Record<string, unknown>
