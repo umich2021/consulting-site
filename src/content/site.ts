@@ -72,7 +72,7 @@ export const WORK: WorkItem[] = [
   },
   {
     title: 'Nexus',
-    meta: "AI education · Built with UNC's Shuford Entrepreneurship Program",
+    meta: "AI education · Divit Endal at Endal Technologies, with UNC's Shuford Entrepreneurship Program",
     body: 'College athletes with name, image and likeness (NIL) deals get paid like small businesses but get generic financial advice. Nexus builds each athlete a course around their own deals, and its AI tutor answers questions by citing the lesson it used. Tax figures come from calculators instead of the model, and anything that reads like personal financial advice goes to an educator.',
     image: '/images/work/nexus.webp',
     imageAlt: 'Nexus dashboard with progress, daily goals and a market overview',
@@ -132,6 +132,43 @@ export const BACKGROUND: BackgroundItem[] = [
   {
     name: 'University of Michigan, Ross School of Business',
     body: 'BBA, 3.89 GPA, magna cum laude.',
+  },
+]
+
+export const ABOUT_LEAD = 'Corrino Tech is Jimson Yang and Divit Endal.'
+
+export type TeamMember = { name: string; title: string; body: string }
+
+export const TEAM: TeamMember[] = [
+  {
+    name: 'Jimson Yang',
+    title: 'Founder',
+    body: 'Jimson builds the apps and works with clients from the first call to launch. He is a forward deployed engineer at TrustPixel and has spent years in startups on sales, go-to-market and engineering.',
+  },
+  {
+    name: 'Divit Endal',
+    title: 'Owner',
+    body: 'Divit runs Endal Technologies, an applied AI consultancy in San Francisco. Endal takes a client workflow to a working prototype in about five days and to production in about five weeks, and hands over a system the client owns. Endal is a registered partner in the Claude Partner Network.',
+  },
+]
+
+// Divit's consulting work at Endal Technologies, rewritten from endaltechnologies.com.
+export const ENDAL_WORK: BackgroundItem[] = [
+  {
+    name: 'Nexus, with UNC Shuford',
+    body: "An AI tutor for college athletes with NIL deals, built with UNC's Shuford Entrepreneurship Program. Each athlete gets a course built around their own deals.",
+  },
+  {
+    name: 'Desktop agent for Tableau',
+    body: 'Tableau has no good way to automate its desktop app, so analysts built dashboards by hand. Endal shipped an agent that builds them, with every step checked against the screen and Windows events, to a paying analytics customer.',
+  },
+  {
+    name: 'Blueprint compliance',
+    body: 'For a product company in architecture and engineering, a pipeline that turns blueprints and electrical drawings into structured data, then has AI agents check them against building codes and contract specs. Reviewers accept or correct each finding.',
+  },
+  {
+    name: 'Neuroscience lab tools',
+    body: 'A command-line tool and desktop app that read recordings from Intan and Open Ephys hardware, so labs without programmers can run the same analysis every time.',
   },
 ]
 

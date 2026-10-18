@@ -62,7 +62,21 @@ When people ask ChatGPT or Google's AI about a product, the answer shapes what t
 3. A paid pilot. Four to six weeks live with your customers at a reduced price, with one agreed number to move, such as repeat orders, measured against where you started.
 4. Ongoing support. A flat monthly fee covers hosting, app updates and changes as your business or the rules change.
 
-## Background
+## About page
+
+Lead: Corrino Tech is Jimson Yang and Divit Endal.
+
+Team
+- Jimson Yang · Founder. Jimson builds the apps and works with clients from the first call to launch. He is a forward deployed engineer at TrustPixel and has spent years in startups on sales, go-to-market and engineering.
+- Divit Endal · Owner. Divit runs Endal Technologies, an applied AI consultancy in San Francisco. Endal takes a client workflow to a working prototype in about five days and to production in about five weeks, and hands over a system the client owns. Endal is a registered partner in the Claude Partner Network.
+
+Divit's consulting work (rewritten from endaltechnologies.com)
+- Nexus, with UNC Shuford. An AI tutor for college athletes with NIL deals, built with UNC's Shuford Entrepreneurship Program. Each athlete gets a course built around their own deals.
+- Desktop agent for Tableau. Tableau has no good way to automate its desktop app, so analysts built dashboards by hand. Endal shipped an agent that builds them, with every step checked against the screen and Windows events, to a paying analytics customer.
+- Blueprint compliance. For a product company in architecture and engineering, a pipeline that turns blueprints and electrical drawings into structured data, then has AI agents check them against building codes and contract specs. Reviewers accept or correct each finding.
+- Neuroscience lab tools. A command-line tool and desktop app that read recordings from Intan and Open Ephys hardware, so labs without programmers can run the same analysis every time.
+
+## Jimson's background
 
 I'm a forward deployed engineer at TrustPixel. Before that I spent several years in startups working on sales, go-to-market and engineering (I'm a self-taught engineer), plus a stint doing due diligence at venture funds.
 
