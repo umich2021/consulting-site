@@ -1,0 +1,76 @@
+/* Text is set in the video's own frame (16:9) and sized off its width, so it reads as part of the footage. */
+.stage {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-wall-bg);
+  container-type: inline-size;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cue {
+  position: absolute;
+  margin: 0;
+  max-inline-size: 80%;
+  color: var(--color-on-wall);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  text-shadow: 0 0.04em 0.4em rgb(0 0 0 / 0.45);
+  opacity: 0;
+  transition:
+    opacity var(--duration-cue) var(--ease-cue),
+    transform var(--duration-cue) var(--ease-cue),
+    clip-path var(--duration-cue) var(--ease-cue),
+    letter-spacing var(--duration-cue) var(--ease-cue);
+}
+
+.xl { font-size: 8cqi; }
+.lg { font-size: 5.5cqi; }
+.md { font-size: 2.6cqi; font-weight: var(--weight-bold); letter-spacing: 0.02em; }
+.sm { font-size: 1.6cqi; font-weight: var(--weight-bold); letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* Positions, with a 6% safe margin like a broadcast title. */
+.topLeft { inset-block-start: 7%; inset-inline-start: 6%; }
+.topCenter { inset-block-start: 7%; inset-inline-start: 50%; translate: -50% 0; text-align: center; }
+.topRight { inset-block-start: 7%; inset-inline-end: 6%; text-align: end; }
+.centerLeft { inset-block-start: 50%; inset-inline-start: 6%; translate: 0 -50%; }
+.center { inset-block-start: 50%; inset-inline-start: 50%; translate: -50% -50%; text-align: center; }
+.centerRight { inset-block-start: 50%; inset-inline-end: 6%; translate: 0 -50%; text-align: end; }
+.belowCenter { inset-block-start: 62%; inset-inline-start: 50%; translate: -50% 0; text-align: center; }
+.bottomLeft { inset-block-end: 8%; inset-inline-start: 6%; }
+.bottomCenter { inset-block-end: 8%; inset-inline-start: 50%; translate: -50% 0; text-align: center; }
+.bottomRight { inset-block-end: 8%; inset-inline-end: 6%; text-align: end; }
+
+/* Entrances. Each starts offset and settles when the cue turns on. */
+.rise { transform: translateY(0.35em); }
+.scale { transform: scale(1.12); }
+.wipe { clip-path: inset(0 100% 0 0); opacity: 1; }
+.fade { letter-spacing: 0.08em; }
+.cut { transition: none; }
+
+.on { opacity: 1; transform: none; }
+/* Open the wipe past the text box so the clip never cuts the soft shadow into a visible rectangle. */
+.wipe.on { clip-path: inset(-50% -10% -50% -10%); }
+.fade.on { letter-spacing: var(--tracking-display); }
+.md.fade.on { letter-spacing: 0.02em; }
+.sm.fade.on { letter-spacing: 0.14em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cue { transition: none; }
+}

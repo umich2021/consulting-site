@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import { HeroVideo } from '../components/HeroVideo'
 import { WallSection } from '../components/WallSection'
 import { CONTACT, INTRO, REGULATED_NOTE, SERVICES } from '../content/site'
 import { formatIndex } from '../lib/format'
@@ -8,6 +9,8 @@ export function HomePage() {
   return (
     <>
       <title>Corrino Tech · Jimson Yang, mobile app consulting</title>
+
+      <HeroVideo />
 
       <section className={styles.intro} aria-labelledby="intro-heading">
         <h1 id="intro-heading" className={styles.name}>

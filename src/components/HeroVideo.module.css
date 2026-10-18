@@ -1,0 +1,8 @@
+/* Full-bleed band, the same breakout as the wall of apps. */
+.hero {
+  inline-size: 100vw;
+  margin-inline: calc(50% - 50vw);
+  max-block-size: 85vh;
+  overflow: hidden;
+  background: var(--color-wall-bg);
+}

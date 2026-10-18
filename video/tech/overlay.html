@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tech reel light layer</title>
+<style>
+* { margin: 0; }
+body { width: 1920px; height: 1080px; overflow: hidden; background: #000; }
+canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="cv" width="1920" height="1080"></canvas>
+<script>
+// The light layer for the 10-second tech reel. Drawn on black and screen-blended over the footage,
+// so black is invisible and anything bright adds light. No words anywhere.
+const W = 1920, H = 1080, CX = W / 2, CY = H / 2
+const WHITE = '255,255,255', BRASS = '226,196,140', ICE = '170,220,255'
+const ctx = document.getElementById('cv').getContext('2d')
+const clamp = (x) => Math.min(1, Math.max(0, x))
+const ease = (x) => 1 - Math.pow(1 - clamp(x), 3)
+const window01 = (t, a, b) => clamp((t - a) / (b - a))
+
+// Cut times, filled in by the edit script (seconds). The defaults match edit_tech.py.
+window.CUTS = window.CUTS || [1.2, 2.2, 3.0, 3.625, 4.167, 4.667, 5.083, 5.458, 5.833, 6.167, 6.5, 6.792, 7.042, 7.333]
+const IMPACT = 7.333
+
+let seed = 5
+const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647)
+const particles = Array.from({ length: 140 }, () => ({ x: rand() * W, y: rand() * H, v: 120 + rand() * 520, len: 20 + rand() * 120, a: 0.15 + rand() * 0.5 }))
+
+function line(x1, y1, x2, y2, color, alpha, width) {
+  ctx.strokeStyle = `rgba(${color},${alpha})`; ctx.lineWidth = width
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke()
+}
+
+function glow(fn) {
+  ctx.save(); ctx.shadowBlur = 24; ctx.shadowColor = `rgba(${BRASS},0.9)`; fn(); ctx.restore()
+}
+
+window.renderAt = (t) => {
+  ctx.globalCompositeOperation = 'source-over'
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H)
+  ctx.globalCompositeOperation = 'lighter'
+
+  // Ignite: a horizon line draws out from the center, then fades as the cuts speed up.
+  const draw = ease(window01(t, 0.05, 1.0))
+  const fadeLine = 1 - window01(t, 2.6, 3.2)
+  if (fadeLine > 0) glow(() => line(CX - 900 * draw, CY, CX + 900 * draw, CY, BRASS, 0.75 * fadeLine, 2))
+
+  // HUD corner brackets and a slow rotating ring during the opening.
+  const hud = ease(window01(t, 0.3, 1.1)) * (1 - window01(t, 2.8, 3.2))
+  if (hud > 0) {
+    const s = 60, m = 90
+    for (const [x, y, dx, dy] of [[m, m, 1, 1], [W - m, m, -1, 1], [m, H - m, 1, -1], [W - m, H - m, -1, -1]]) {
+      line(x, y, x + s * dx * hud, y, WHITE, 0.6 * hud, 2); line(x, y, x, y + s * dy * hud, WHITE, 0.6 * hud, 2)
+    }
+    ctx.strokeStyle = `rgba(${WHITE},${0.35 * hud})`; ctx.lineWidth = 1.5
+    ctx.setLineDash([4, 14]); ctx.beginPath(); ctx.arc(CX, CY, 300, t * 0.6, t * 0.6 + Math.PI * 1.6 * hud); ctx.stroke(); ctx.setLineDash([])
+  }
+
+  // A diagonal light sweep across each of the first three cuts.
+  for (const cut of window.CUTS.slice(0, 3)) {
+    const k = window01(t, cut - 0.18, cut + 0.22)
+    if (k > 0 && k < 1) {
+      const x = -400 + k * (W + 800)
+      const g = ctx.createLinearGradient(x - 220, 0, x + 220, 0)
+      g.addColorStop(0, `rgba(${WHITE},0)`); g.addColorStop(0.5, `rgba(${WHITE},0.55)`); g.addColorStop(1, `rgba(${WHITE},0)`)
+      ctx.save(); ctx.translate(x, CY); ctx.rotate(-0.35); ctx.translate(-x, -CY); ctx.fillStyle = g; ctx.fillRect(x - 220, -300, 440, H + 600); ctx.restore()
+    }
+  }
+
+  // Accelerating section: a horizontal glint flicks across on every cut.
+  for (const cut of window.CUTS.slice(3, -1)) {
+    const k = window01(t, cut - 0.04, cut + 0.08)
+    if (k > 0 && k < 1) {
+      const a = 1 - Math.abs(k - 0.5) * 2
+      glow(() => line(0, CY + (cut * 997 % 400) - 200, W, CY + (cut * 997 % 400) - 200, ICE, 0.8 * a, 3))
+      ctx.fillStyle = `rgba(${WHITE},${0.18 * a})`; ctx.fillRect(0, 0, W, H)
+    }
+  }
+
+  // Impact: a two-frame white flash and a shockwave of rings.
+  const flash = 1 - window01(t, IMPACT, IMPACT + 0.12)
+  if (t >= IMPACT && flash > 0) { ctx.fillStyle = `rgba(${WHITE},${0.95 * flash})`; ctx.fillRect(0, 0, W, H) }
+  const wave = window01(t, IMPACT, IMPACT + 0.9)
+  if (wave > 0 && wave < 1) {
+    for (let i = 0; i < 3; i += 1) {
+      const r = ease(wave - i * 0.12) * 1300
+      if (r <= 0) continue
+      ctx.strokeStyle = `rgba(${i === 0 ? WHITE : BRASS},${(1 - wave) * 0.8})`; ctx.lineWidth = 6 - i * 1.5
+      ctx.beginPath(); ctx.arc(CX, CY, r, 0, Math.PI * 2); ctx.stroke()
+    }
+  }
+
+  // Resolve: light particles stream past, easing in after the impact and out before the loop.
+  const flow = window01(t, IMPACT + 0.2, IMPACT + 0.9) * (1 - window01(t, 9.5, 9.95))
+  if (flow > 0) {
+    for (const p of particles) {
+      const x = (p.x + (t - IMPACT) * p.v) % (W + 200) - 100
+      line(x - p.len, p.y, x, p.y, BRASS, p.a * flow * 0.6, 1.5)
+    }
+  }
+}
+</script>
+</body>
+</html>

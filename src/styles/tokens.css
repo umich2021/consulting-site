@@ -63,6 +63,8 @@
 
   --duration-fast: 150ms;
   --ease-standard: ease;
+  --duration-cue: 450ms;
+  --ease-cue: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (min-width: 48rem) {

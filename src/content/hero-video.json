@@ -1,0 +1,23 @@
+{
+  "src": "/media/tech-reel.mp4",
+  "poster": "/media/tech-reel-poster.jpg",
+  "blank": false,
+  "cues": [
+    {
+      "text": "Corrino Tech",
+      "start": 7.5,
+      "end": 9.7,
+      "position": "center",
+      "size": "xl",
+      "motion": "rise"
+    },
+    {
+      "text": "Mobile apps for local businesses",
+      "start": 7.9,
+      "end": 9.7,
+      "position": "below-center",
+      "size": "md",
+      "motion": "fade"
+    }
+  ]
+}

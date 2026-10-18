@@ -1,0 +1,27 @@
+{
+  "model": "google/veo-3.1-fast",
+  "duration": 4,
+  "resolution": "1080p",
+  "aspect_ratio": "16:9",
+  "style": "Realistic footage at real-time speed, not slow motion. Fast, confident camera movement. Natural true-to-life colors with no color grading and no film look. Sharp and crisp. Full-frame image edge to edge with no vignette, no black borders, no letterbox. No readable text, no logos, no watermarks.",
+  "shots": [
+    { "id": "tx-01-circuit", "prompt": "Extreme macro of a circuit board, the camera racing low across chips and gold traces as tiny LEDs blink on in sequence." },
+    { "id": "tx-02-servers", "prompt": "Fast dolly down a dark data center aisle between tall server racks covered in blinking blue and green status lights." },
+    { "id": "tx-03-fiber", "prompt": "Macro of fiber optic cable ends bursting with pulses of white and blue light, the camera pushing through them." },
+    { "id": "tx-04-typing", "prompt": "Close-up of hands typing very fast on a mechanical keyboard in a dark room lit only by the monitor." },
+    { "id": "tx-05-code-eyes", "prompt": "Extreme close-up of a developer's eyes and glasses with rapidly scrolling lines of code reflected in the lenses." },
+    { "id": "tx-06-robot-arm", "prompt": "An industrial robotic arm whipping fast through precise movements on a factory line, sparks and motion." },
+    { "id": "tx-07-chip", "prompt": "Macro of a tweezers placing a tiny computer chip onto a circuit board, then the board lighting up." },
+    { "id": "tx-08-phone-assembly", "prompt": "Macro of a smartphone being assembled, a glowing screen panel snapping into the aluminum frame." },
+    { "id": "tx-09-phone-ui", "prompt": "Close-up of a thumb flicking fast through a colorful app on a modern smartphone, screen glowing in a dark room, abstract interface shapes with no readable text." },
+    { "id": "tx-10-led-wall", "prompt": "Camera rushing toward a huge LED video wall pulsing with abstract colorful data patterns in a dark modern office." },
+    { "id": "tx-11-city-data", "prompt": "Fast aerial hyperlapse over a city at night, streams of car lights flowing like data through the streets." },
+    { "id": "tx-12-drone", "prompt": "A small drone lifting off fast from a launch pad and banking away, propellers blurring, camera tracking it." },
+    { "id": "tx-13-vr", "prompt": "A person in a sleek VR headset turning their head quickly, colored light from the lenses spilling across their face in a dark room." },
+    { "id": "tx-14-laser", "prompt": "A laser cutter tracing a fast glowing path across a sheet of metal, bright sparks spraying." },
+    { "id": "tx-15-satellite", "prompt": "A satellite gliding over the curve of the Earth at night with city lights below, sun flaring over the horizon." },
+    { "id": "tx-16-studio", "prompt": "Wide shot of a modern startup office at night, a small team working fast at glowing monitors, camera sweeping past glass walls." },
+    { "id": "tx-17-lightspeed", "prompt": "Camera racing forward through a long tunnel of white LED light strips, everything streaking past." },
+    { "id": "tx-18-switch", "prompt": "Macro of a network switch with rows of cables plugged in and port lights flickering rapidly." }
+  ]
+}
