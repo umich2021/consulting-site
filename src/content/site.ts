@@ -14,10 +14,10 @@ export type Step = { title: string; body: string }
 export type BackgroundItem = { name: string; body: string }
 
 export const INTRO = {
-  name: 'Jimson Yang',
   company: 'Corrino Tech',
-  role: 'Corrino Tech · Mobile app consulting',
-  lead: "I build iOS and Android apps for local businesses, published under your business's own name. I've worked on both the sales and the engineering side of startups, so I build the features that bring customers back first.",
+  headline: 'Apps for local businesses',
+  role: 'Corrino Tech · Jimson Yang and Divit Endal',
+  lead: "We build mobile and web apps for local businesses, published under your business's own name. Jimson has spent years on the sales and engineering side of startups, and Divit runs Endal Technologies, an applied AI consultancy. We start with the features that bring your customers back.",
   location: 'Based in San Francisco.',
 }
 
@@ -29,24 +29,24 @@ export const WALL = {
 export const SERVICES: Service[] = [
   {
     title: 'Your own branded app',
-    body: "An iPhone and Android app with your name and logo on the customer's home screen, published under your own App Store and Google Play accounts. I handle the store submissions and reviews.",
+    body: 'An iPhone, Android or web app with your name and logo on it. Phone apps go out under your own App Store and Google Play accounts, and web apps run on your own domain. We handle the store submissions and reviews.',
   },
   {
     title: 'Ordering, rewards and booking',
-    body: 'Customers browse your menu or services, order ahead or book a time, and earn rewards for coming back. The app is designed around how your customers already buy from you.',
+    body: 'Customers browse your menu or services, order ahead or book a time, and earn rewards for coming back. We design it around how your customers already buy from you.',
   },
   {
     title: 'Connected to the systems you use',
-    body: 'The app syncs with the point-of-sale, inventory or booking software you already pay for, so your staff keep one system and the menu in the app stays current.',
+    body: 'The app syncs with the point-of-sale, inventory or booking software you already pay for, so your staff keep one system and your menu stays current on every screen.',
   },
   {
-    title: 'Push notifications and upkeep',
-    body: 'Send offers on slow days and reminders when a customer is due back. I keep the app updated for new phone OS releases and store policy changes.',
+    title: 'Notifications and upkeep',
+    body: 'Send offers on slow days and reminders when a customer is due back. We keep your apps updated for new phone and browser releases and for app store policy changes.',
   },
 ]
 
 export const REGULATED_NOTE =
-  "I also build for regulated industries, where Apple and Google add their own rules on top of the state's. A cannabis dispensary app, for example, has to verify age, show the license number and follow state rules on payments and promotions. I build that in from the start."
+  "We also build for regulated industries, where Apple and Google add their own rules on top of the state's. A cannabis dispensary app, for example, has to verify age, show the license number and follow state rules on payments and promotions. We build that in from the start."
 
 export type WorkItem = {
   title: string
@@ -93,11 +93,11 @@ export const WORK: WorkItem[] = [
 export const STEPS: Step[] = [
   {
     title: 'A short call',
-    body: "Twenty minutes on how customers find you, buy from you and come back. If an app won't help, I'll tell you.",
+    body: "Twenty minutes on how customers find you, buy from you and come back. If an app won't help, we'll tell you.",
   },
   {
     title: 'A demo on your phone',
-    body: "I come back with a working app under your name, installed on your phone, so you're judging something real.",
+    body: "We come back with a working app under your name, on your phone, so you're judging something real.",
   },
   {
     title: 'A paid pilot',
@@ -110,20 +110,20 @@ export const STEPS: Step[] = [
 ]
 
 export const BACKGROUND_INTRO =
-  "I'm a forward deployed engineer at TrustPixel. Before that I spent several years in startups working on sales, go-to-market and engineering (I'm a self-taught engineer), plus a stint doing due diligence at venture funds."
+  'Jimson is a forward deployed engineer at TrustPixel. Before TrustPixel, Jimson spent several years in startups working on sales, go-to-market and engineering (self-taught on the engineering side) and did due diligence at two venture funds.'
 
 export const BACKGROUND: BackgroundItem[] = [
   {
     name: 'Aventos, co-founder',
-    body: 'An AI anime studio that turned popular Korean stories into anime. I landed a publisher deal for a series with 98.5M views in Korea and a distribution deal with BlueBox.tv, and turned our internal tools into a platform that made its first $10K.',
+    body: "An AI anime studio that turned popular Korean stories into anime. Jimson landed a publisher deal for a series with 98.5M views in Korea and a distribution deal with BlueBox.tv, and turned the studio's internal tools into a platform that made its first $10K.",
   },
   {
     name: 'Project GEO, founder',
-    body: 'A tracker for how brands show up when people ask ChatGPT or Claude for recommendations. I built the full stack myself and took it from zero to its first B2B sales.',
+    body: 'A tracker for how brands show up when people ask ChatGPT or Claude for recommendations. Jimson built the full stack and took it from zero to its first B2B sales.',
   },
   {
     name: 'Pink Inference, co-founder',
-    body: 'A deep tech startup where I worked on the business side. It raised a $100K pre-seed round from the 1517 Fund.',
+    body: 'A deep tech startup where Jimson worked on the business side. It raised a $100K pre-seed round from the 1517 Fund.',
   },
   {
     name: 'Venture due diligence',
@@ -143,12 +143,12 @@ export const TEAM: TeamMember[] = [
   {
     name: 'Jimson Yang',
     title: 'Founder',
-    body: 'Jimson builds the apps and works with clients from the first call to launch. He is a forward deployed engineer at TrustPixel and has spent years in startups on sales, go-to-market and engineering.',
+    body: 'Jimson builds the apps and works with clients from the first call to launch, and also works as a forward deployed engineer at TrustPixel.',
   },
   {
     name: 'Divit Endal',
     title: 'Owner',
-    body: 'Divit runs Endal Technologies, an applied AI consultancy in San Francisco. Endal takes a client workflow to a working prototype in about five days and to production in about five weeks, and hands over a system the client owns. Endal is a registered partner in the Claude Partner Network.',
+    body: 'Divit runs Endal Technologies, an applied AI consultancy in San Francisco. Endal takes a client workflow to a working prototype in about five days and to production in about five weeks, and hands over a system the client owns. It is a registered partner in the Claude Partner Network.',
   },
 ]
 
@@ -160,7 +160,7 @@ export const ENDAL_WORK: BackgroundItem[] = [
   },
   {
     name: 'Desktop agent for Tableau',
-    body: 'Tableau has no good way to automate its desktop app, so analysts built dashboards by hand. Endal shipped an agent that builds them, with every step checked against the screen and Windows events, to a paying analytics customer.',
+    body: "Tableau's desktop app has no good way to automate it, so analysts built dashboards by hand. Endal shipped an agent to a paying analytics customer that builds them and checks every step against the screen and Windows events.",
   },
   {
     name: 'Blueprint compliance',
@@ -172,4 +172,4 @@ export const ENDAL_WORK: BackgroundItem[] = [
   },
 ]
 
-export const CONTACT_HEADING = 'Want to see your business as an app? I can bring a demo to you.'
+export const CONTACT_HEADING = 'Want to see your business as an app? We can bring a demo to you.'

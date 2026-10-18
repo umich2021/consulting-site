@@ -8,13 +8,13 @@ import styles from '../styles/sections.module.css'
 export function HomePage() {
   return (
     <>
-      <title>Corrino Tech · Jimson Yang, mobile app consulting</title>
+      <title>Corrino Tech · Mobile and web apps for local businesses</title>
 
       <HeroVideo />
 
       <section className={styles.intro} aria-labelledby="intro-heading">
         <h1 id="intro-heading" className={styles.name}>
-          {INTRO.name}
+          {INTRO.headline}
           <span className={styles.nameSquare} aria-hidden="true" />
         </h1>
         <div className={styles.introBody}>
@@ -23,7 +23,7 @@ export function HomePage() {
           <p className={styles.muted}>{INTRO.location}</p>
           <div className={styles.actions}>
             <a className={styles.buttonPrimary} href={`mailto:${CONTACT.email}`}>
-              Email me
+              Email us
             </a>
             <a className={styles.buttonSecondary} href={CONTACT.phoneHref}>
               Call or text {CONTACT.phoneDisplay}
@@ -36,7 +36,7 @@ export function HomePage() {
 
       <section className={styles.section} aria-labelledby="services-heading">
         <h2 id="services-heading" className={styles.sectionLabel}>
-          What I do
+          What we do
         </h2>
         <div className={styles.sectionBody}>
           <ol className={styles.rows}>

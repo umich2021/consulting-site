@@ -11,7 +11,8 @@
 
 .title {
   font-size: var(--text-xl);
-  font-weight: var(--weight-black);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
   line-height: var(--leading-heading);
 }
 

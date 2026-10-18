@@ -1,37 +1,40 @@
-# Design System: consulting.jimsonyang.com
+# Design System: Corrino Tech
 
-> Category: Editorial / portfolio
-> A Swiss consultancy brochure: huge flush-left "Jimson Yang" in Archivo, sections numbered 01 to 04 and split by full-width hairlines, black on warm white, one red square as the only color, nothing rounded and nothing in a card.
+> Category: Editorial / brand
+> The business card on a web page: ivory paper, forest green ink, Playfair Display headings over Work Sans, thin brass rules and frames, and "CORRINO TECH" in spaced brass capitals. One light theme only (no dark mode, by request on 2026-10-18).
 
 ## 1. Visual Theme & Atmosphere
 
-- **Thesis:** as above.
-- **Adjectives:** typographic, gridded, sparse, exact.
-- **Signature element:** oversized section numbers (01–04) in the left grid column, and a single red square next to the name.
-- **References:** Müller-Brockmann posters → flush-left grotesk on a visible grid; printed consultancy brochures → numbered sections on hairlines; business card 2 → Archivo and the red square.
+- **Thesis:** as above. Card 5C (forest front with brass frame, ivory back with green spine) is the reference for every choice.
+- **Adjectives:** quiet, crafted, editorial, warm.
+- **Signature elements:** the brass lockup (spaced capitals between rules), a thin brass frame inset on every dark band, and forest bands at the top (video) and bottom (footer) like the card's front.
+- **References:** business card 5C → palette, fonts, frame and lockup; printed consultancy brochures → numbered sections on hairlines.
 
 ## 2. Color
 
-| Role | Token | Light | Dark | Use |
-|---|---|---|---|---|
-| Background | `--color-bg` | `#F7F5F0` | `#121212` | page |
-| Surface | `--color-surface` | `#FFFFFF` | `#1C1C1C` | sticky contact bar only |
-| Text | `--color-text` | `#111111` | `#F2F0EB` | body, headings |
-| Text muted | `--color-text-muted` | `#55524C` | `#A8A49C` | labels, secondary lines (≥ 4.5:1) |
-| Rule | `--color-rule` | `#111111` | `#F2F0EB` | section hairlines |
-| Rule subtle | `--color-rule-subtle` | `#D6D2C8` | `#3A3833` | rows inside a section |
-| Accent | `--color-primary` | `#C8221B` | `#FF6257` | the square, primary button, link hover |
-| On accent | `--color-on-primary` | `#FFFFFF` | `#121212` | text on the primary button |
+| Role | Token | Value | Use |
+|---|---|---|---|
+| Background | `--color-bg` | `#FAF7F0` | page (card ivory) |
+| Surface | `--color-surface` | `#FFFFFF` | inputs, sticky contact bar |
+| Text | `--color-text` | `#183A2E` | body and headings (forest) |
+| Text muted | `--color-text-muted` | `#4F5E57` | secondary lines (≥ 4.5:1 on ivory) |
+| Label | `--color-label` | `#6E5E3A` | small uppercase labels, link hover (card's dark brass) |
+| Rule | `--color-rule` | `#183A2E` | section hairlines |
+| Rule subtle | `--color-rule-subtle` | `#DDD5C3` | rows inside a section |
+| Primary | `--color-primary` | `#183A2E` | buttons, footer band |
+| On primary | `--color-on-primary` | `#FAF7F0` | text on forest |
+| Accent | `--color-accent` | `#C8A464` | brass: rules, frames, squares, lockups on forest. Decorative only on ivory (contrast too low for text there) |
+| Video band | `--color-wall-bg` | `#0F241C` | behind and over video so dimmed footage stays green |
 
-- One accent, used for the square, the primary button and focus rings. No gradients. Links are underlined, so color never carries meaning alone.
+- No gradients except the scrim over video. Links are underlined, so color never carries meaning alone. Focus rings use forest.
 
 ## 3. Typography
 
-- **Display:** Archivo 800. A grotesk with tight, wide-shouldered caps that holds up at 150px, and it matches card 2.
-- **Body:** Archivo 400/500. One family keeps the page quiet; weight and size do the hierarchy.
-- **Numerals:** Archivo with `font-variant-numeric: tabular-nums` for section numbers and the phone number.
-- **Scale:** 14 / 16 / 18 / 22 / 32 / 48 / fluid 64→152 (name). Name to body ratio is about 8:1 on desktop, 4:1 on phone.
-- **Rules:** headings flush left, tight leading (0.9 for the name, 1.1 for h2). Uppercase only for the small labels.
+- **Display:** Playfair Display 600, as on the card. Headlines, section numbers (lining figures) and large video text.
+- **Body:** Work Sans 400/600, as on the card. Body, labels, buttons, the lockup.
+- **Lockup:** Work Sans 600 uppercase at 0.3em tracking, brass on forest and forest on ivory, led or flanked by a brass rule.
+- **Scale:** 14 / 16 / 18 / 22 / 32 / 48 / fluid 56→136 (headline).
+- **Rules:** headings flush left, leading 0.98 for display. Uppercase only for labels and the lockup.
 
 ## 4. Spacing & Grid
 
@@ -41,7 +44,7 @@
 
 ## 5. Layout & Composition
 
-- Asymmetric and flush left. Nothing centered.
+- Flush left everywhere except the video bands, which center their text like the front of the card.
 - Each section starts with a full-width 1px `--color-rule` hairline.
 - Service and background items are rows separated by `--color-rule-subtle`, never cards.
 
@@ -63,7 +66,7 @@
 
 ## 7b. Favicon
 
-- **Favicon:** a red square with a white "JY" in Archivo-style bold. Files: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, all linked in `index.html`.
+- **Favicon:** forest square with a brass inset frame and ivory "CT" in a serif. Files: `public/favicon.svg`, `public/favicon-32.png`, `public/apple-touch-icon.png`, all linked in `index.html`.
 
 ## 8. Voice & Brand
 
@@ -74,6 +77,6 @@
 ## 9. Anti-patterns
 
 - No cards, no rounded corners, no shadows.
-- No centered hero, no three-icon feature row, no gradient.
+- No three-icon feature row, no gradients beyond the video scrim, no dark mode.
 - No stock or AI illustrations, no emoji.
 - No testimonials or client logos until real ones exist.

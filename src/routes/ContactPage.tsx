@@ -8,8 +8,8 @@ export function ContactPage() {
       <title>Contact · Corrino Tech</title>
       <PageHeader title="Contact" lead={CONTACT_HEADING} />
 
-      <section className={styles.section} aria-label="Ways to reach Jimson">
-        <p className={styles.sectionLabel}>Reach me</p>
+      <section className={styles.section} aria-label="Ways to reach us">
+        <p className={styles.sectionLabel}>Reach us</p>
         <div className={styles.sectionBody}>
           <dl className={styles.rows}>
             <div className={styles.contactRow}>

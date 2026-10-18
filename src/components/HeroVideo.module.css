@@ -1,8 +1,18 @@
 /* Full-bleed band, the same breakout as the wall of apps. */
 .hero {
+  position: relative;
   inline-size: 100vw;
   margin-inline: calc(50% - 50vw);
   max-block-size: 85vh;
   overflow: hidden;
   background: var(--color-wall-bg);
+
+  /* The card's thin brass frame, inset from the edges. */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: var(--frame-inset);
+    border: var(--rule-width) solid var(--color-accent);
+    pointer-events: none;
+  }
 }

@@ -8,6 +8,15 @@
   max-block-size: 85vh;
   overflow: hidden;
   background: var(--color-wall-bg);
+
+  /* The card's thin brass frame, inset from the edges. */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: var(--frame-inset);
+    border: var(--rule-width) solid var(--color-accent);
+    pointer-events: none;
+  }
 }
 
 .video {
@@ -35,7 +44,8 @@
 .heading {
   color: var(--color-on-wall);
   font-size: var(--text-display);
-  font-weight: var(--weight-black);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
   max-inline-size: 12ch;
@@ -47,5 +57,5 @@
   inline-size: 0.18em;
   block-size: 0.18em;
   margin-inline-start: 0.06em;
-  background: var(--color-primary);
+  background: var(--color-accent);
 }

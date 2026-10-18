@@ -13,11 +13,11 @@
       "motion": "rise"
     },
     {
-      "text": "Mobile apps for local businesses",
+      "text": "Mobile and web apps",
       "start": 0.8,
       "end": 23.8,
       "position": "below-center",
-      "size": "md",
+      "size": "sm",
       "motion": "fade"
     }
   ]

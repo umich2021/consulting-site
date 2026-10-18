@@ -14,7 +14,7 @@ export function RootLayout() {
     <div className={styles.shell}>
       <header className={styles.header}>
         <Link to="/" className={styles.wordmark}>
-          <span className={styles.square} aria-hidden="true" />
+          <span className={styles.rule} aria-hidden="true" />
           {INTRO.company}
         </Link>
         <nav aria-label="Main" className={styles.nav}>
@@ -35,10 +35,11 @@ export function RootLayout() {
       </main>
 
       <footer className={styles.footer}>
-        <span>
-          © 2026 {INTRO.company} · {INTRO.name}
-        </span>
-        <a href={CONTACT.personalSite}>{CONTACT.personalSiteLabel}</a>
+        <div className={styles.footerInner}>
+          <span className={styles.footerMark}>{INTRO.company}</span>
+          <span>© 2026</span>
+          <a href={CONTACT.personalSite}>{CONTACT.personalSiteLabel}</a>
+        </div>
       </footer>
 
       <nav aria-label="Contact" className={styles.contactBar}>

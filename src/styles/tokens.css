@@ -1,22 +1,25 @@
-/* Values mirror DESIGN.md. Change DESIGN.md first. */
+/* Values mirror DESIGN.md. Change DESIGN.md first. One light theme, matching the Corrino Tech business card. */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
-  --color-bg: light-dark(#f7f5f0, #121212);
-  --color-surface: light-dark(#ffffff, #1c1c1c);
-  --color-text: light-dark(#111111, #f2f0eb);
-  --color-text-muted: light-dark(#55524c, #a8a49c);
-  --color-rule: light-dark(#111111, #f2f0eb);
-  --color-rule-subtle: light-dark(#d6d2c8, #3a3833);
-  --color-primary: light-dark(#c8221b, #ff6257);
-  --color-primary-hover: color-mix(in oklch, var(--color-primary), black 14%);
-  --color-on-primary: light-dark(#ffffff, #121212);
-  /* The wall-of-apps band is dark in both themes because it sits on video. */
-  --color-wall-bg: #070b09;
-  --color-wall-scrim: linear-gradient(90deg, rgb(4 6 5 / 0.72), rgb(4 6 5 / 0.15) 70%);
-  --color-on-wall: #f7f5f0;
+  --color-bg: #faf7f0;
+  --color-surface: #ffffff;
+  --color-text: #183a2e;
+  --color-text-muted: #4f5e57;
+  --color-label: #6e5e3a;
+  --color-rule: #183a2e;
+  --color-rule-subtle: #ddd5c3;
+  --color-primary: #183a2e;
+  --color-primary-hover: #0f2a20;
+  --color-on-primary: #faf7f0;
+  --color-accent: #c8a464;
+  /* Video bands sit on deep forest so dimmed footage stays green rather than grey. */
+  --color-wall-bg: #0f241c;
+  --color-wall-scrim: linear-gradient(90deg, rgb(15 36 28 / 0.75), rgb(15 36 28 / 0.15) 70%);
+  --color-on-wall: #faf7f0;
 
-  --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Work Sans', 'Helvetica Neue', Arial, sans-serif;
 
   --text-xs: 0.875rem;
   --text-sm: 1rem;
@@ -24,20 +27,21 @@
   --text-lg: 1.375rem;
   --text-xl: 2rem;
   --text-2xl: 3rem;
-  --text-display: clamp(4rem, 1.6rem + 10vw, 9.5rem);
+  --text-display: clamp(3.5rem, 1.4rem + 8.5vw, 8.5rem);
   --text-page-title: clamp(3rem, 1.5rem + 6vw, 6rem);
 
-  --leading-tight: 0.9;
-  --leading-heading: 1.1;
-  --leading-body: 1.55;
+  --leading-tight: 0.98;
+  --leading-heading: 1.15;
+  --leading-body: 1.6;
 
   --weight-regular: 400;
   --weight-medium: 500;
-  --weight-bold: 700;
-  --weight-black: 800;
+  --weight-bold: 600;
+  --weight-display: 600;
 
-  --tracking-label: 0.12em;
-  --tracking-display: -0.03em;
+  --tracking-label: 0.14em;
+  --tracking-wordmark: 0.3em;
+  --tracking-display: -0.01em;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -54,6 +58,7 @@
   --grid-gutter: var(--space-5);
   --square-size: 0.6em;
   --rule-width: 1px;
+  --frame-inset: clamp(0.75rem, 2vw, 1.75rem);
   --button-height: 3rem;
   --focus-width: 2px;
   --focus-offset: 3px;
@@ -71,12 +76,4 @@
   :root {
     --page-margin: var(--space-7);
   }
-}
-
-:root[data-theme='light'] {
-  color-scheme: light;
-}
-
-:root[data-theme='dark'] {
-  color-scheme: dark;
 }
