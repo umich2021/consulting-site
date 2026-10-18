@@ -1,0 +1,174 @@
+/* Phones: a vertical line down the left with steps hanging off it.
+   Desktop: a horizontal line through four nodes, details opening below each. */
+.timeline {
+  --node: 3.5rem;
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+
+  /* The brass line itself. */
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: calc(var(--node) / 2);
+    inset-inline-start: calc(var(--node) / 2);
+    inline-size: var(--rule-width);
+    background: var(--color-accent);
+  }
+
+  @media (min-width: 56rem) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--grid-gutter);
+
+    &::before {
+      inset-block: calc(var(--node) / 2) auto;
+      inset-inline: calc(var(--node) / 2) 0;
+      inline-size: auto;
+      block-size: var(--rule-width);
+    }
+  }
+}
+
+.step {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.trigger {
+  display: grid;
+  grid-template-columns: var(--node) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  inline-size: 100%;
+  min-height: var(--node);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+
+  @media (min-width: 56rem) {
+    grid-template-columns: var(--node) auto;
+    grid-template-rows: auto auto;
+    row-gap: var(--space-4);
+  }
+}
+
+.node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: var(--node);
+  block-size: var(--node);
+  border: var(--rule-width) solid var(--color-accent);
+  background: var(--color-bg);
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.number {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-xl);
+  line-height: var(--leading-heading);
+
+  @media (min-width: 56rem) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* A plus that turns into a minus when the step is open. */
+.toggle {
+  position: relative;
+  inline-size: 1rem;
+  block-size: 1rem;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    block-size: 2px;
+    margin-block-start: -1px;
+    background: var(--color-label);
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  &::after {
+    transform: rotate(90deg);
+  }
+
+  @media (min-width: 56rem) {
+    display: none;
+  }
+}
+
+.detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  padding-inline-start: calc(var(--node) + var(--space-4));
+  transition:
+    grid-template-rows var(--duration-cue) var(--ease-cue),
+    opacity var(--duration-cue) var(--ease-cue);
+
+  & p {
+    overflow: hidden;
+    color: var(--color-text-muted);
+    max-width: var(--measure);
+  }
+
+  /* Desktop keeps the space reserved so the line doesn't jump as details open. */
+  @media (min-width: 56rem) {
+    grid-template-rows: 1fr;
+    padding-inline-start: 0;
+    transform: translateY(-0.5rem);
+    transition:
+      opacity var(--duration-cue) var(--ease-cue),
+      transform var(--duration-cue) var(--ease-cue);
+  }
+}
+
+.open {
+  & .node {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  & .toggle::after {
+    transform: rotate(0deg);
+  }
+
+  & .detail {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.trigger:hover .node {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node,
+  .detail,
+  .toggle::before,
+  .toggle::after {
+    transition: none;
+  }
+}

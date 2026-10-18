@@ -233,20 +233,6 @@
   }
 }
 
-.steps {
-  display: grid;
-  gap: var(--space-6) var(--grid-gutter);
-
-  @media (min-width: 48rem) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.step {
-  display: grid;
-  gap: var(--space-3);
-  align-content: start;
-}
 
 .contactHeading {
   font-size: var(--text-xl);
@@ -268,4 +254,9 @@
   font-weight: var(--weight-medium);
   font-variant-numeric: lining-nums tabular-nums;
   overflow-wrap: anywhere;
+}
+
+.timelineSection {
+  padding-block: var(--space-6) var(--space-9);
+  border-block-start: var(--rule-width) solid var(--color-rule);
 }
